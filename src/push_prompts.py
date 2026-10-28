@@ -38,10 +38,14 @@ DICAS DE IMPLEMENTAÇÃO:
 
 import os
 import sys
+import json
 from dotenv import load_dotenv
 from langsmith import Client
 from langchain_core.prompts import ChatPromptTemplate
-from utils import load_yaml, check_env_vars, print_section_header
+from utils import (
+    PROJECT_ROOT, load_yaml, check_env_vars, print_section_header,
+    prompt_fingerprint, validate_prompt_structure,
+)
 
 load_dotenv()
 
@@ -57,7 +61,38 @@ def push_prompt_to_langsmith(prompt_name: str, prompt_data: dict) -> bool:
     Returns:
         True se sucesso, False caso contrário
     """
-    ...
+    try:
+        username = os.getenv("USERNAME_LANGSMITH_HUB")
+
+        prompt = ChatPromptTemplate.from_messages([
+            ("system", prompt_data["system_prompt"]),
+            ("user", prompt_data["user_prompt"]),
+        ])
+        content_sha256 = prompt_fingerprint(prompt)
+        prompt.metadata = {"prompt_content_sha256": content_sha256}
+        print(f"   SHA256 do prompt: {content_sha256}")
+        client = Client()
+
+        url = client.push_prompt(
+            f"{username}/{prompt_name}",
+            object=prompt,
+            is_public=True,
+            description=prompt_data.get("description", "Bug to user story prompt"),
+            tags=[
+                f"version: {prompt_data.get('version', 'v2')}",
+                f"techniques_applied: {json.dumps(prompt_data.get('techniques_applied', []), ensure_ascii=False)}",
+                f"sha256: {content_sha256}",
+            ],
+            commit_description=f"prompt_content_sha256={content_sha256}",
+        )
+
+        print(f"   ✓ Prompt publicado com sucesso")
+        print(f"   ✓ {url}")
+        return True
+
+    except Exception as e:
+        print(f"❌ Erro ao fazer push do prompt: {e}")
+        return False
 
 
 def validate_prompt(prompt_data: dict) -> tuple[bool, list]:
@@ -70,12 +105,46 @@ def validate_prompt(prompt_data: dict) -> tuple[bool, list]:
     Returns:
         (is_valid, errors) - Tupla com status e lista de erros
     """
-    ...
+    errors = []
+
+    if "user_prompt" not in prompt_data or not prompt_data.get("user_prompt", "").strip():
+        errors.append("Campo obrigatório faltando ou vazio: user_prompt")
+
+    if "{bug_report}" not in prompt_data.get("user_prompt", ""):
+        errors.append("user_prompt precisa conter a variável {bug_report}")
+
+    _, structure_errors = validate_prompt_structure(prompt_data)
+    errors.extend(structure_errors)
+
+    return (len(errors) == 0, errors)
 
 
 def main():
     """Função principal"""
-    ...
+    print_section_header("Pushing prompt to LangSmith")
+
+    if not check_env_vars(["LANGSMITH_API_KEY", "USERNAME_LANGSMITH_HUB"]):
+        return 1
+
+    prompt_path = PROJECT_ROOT / "prompts" / "bug_to_user_story_v2.yml"
+    prompt_data = load_yaml(str(prompt_path))
+
+    if prompt_data is None:
+        return 1
+
+    is_valid, errors = validate_prompt(prompt_data)
+    if not is_valid:
+        print("❌ Prompt inválido:")
+        for error in errors:
+            print(f"   - {error}")
+        return 1
+
+    print("✓ Prompt validado com sucesso")
+
+    prompt_name = f"bug_to_user_story_{prompt_data.get('version', 'v2')}"
+    success = push_prompt_to_langsmith(prompt_name, prompt_data)
+
+    return 0 if success else 1
 
 
 if __name__ == "__main__":
