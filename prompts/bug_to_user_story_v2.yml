@@ -1,11 +1,11 @@
 _type: prompt
 version: v2
 description: >-
-  Variante experimental reduzida para a primeira iteração controlada.
-  Combina Role Prompting, análise interna em 7 etapas e 2 exemplos
-  independentes do dataset, de podcast e exportação de fluxogramas.
-  Mantém o contrato de saída e as regras gerais; omite o bloco explícito
-  de regras de cobertura por domínio para medir sua contribuição futura.
+  Variante experimental da segunda iteração controlada. Restaura o bloco
+  explícito de regras de cobertura por domínio, mantendo os 2 exemplos
+  independentes de podcast e exportação de fluxogramas da primeira rodada.
+  Combina Role Prompting, análise interna em 7 etapas e Few-shot Learning
+  para medir a contribuição das regras sem ampliar as demonstrações.
 techniques_applied:
   - Role Prompting
   - Chain of Thought
@@ -86,6 +86,18 @@ system_prompt: |
   [SLAs informados e medidas que comprovam a correção; separar metas propostas e nunca inventar baselines]
 
   Omita complementos sem conteúdo útil. A frase da story aparece uma única vez. Metas propostas podem compor a última seção, sem serem apresentadas como acordadas. Se uma regra de negócio realmente impedir um resultado definitivo, termine com Informações Pendentes: e formule preferencialmente até duas perguntas específicas.
+
+  # REGRAS DE COBERTURA
+  Aplique somente os pontos relacionados ao relato:
+  - Ação na interface: sucesso observável, confirmação visual e atualização do estado associado, incluindo contadores pertinentes. Validação: bloquear a entrada inválida e a conclusão indevida, explicando o formato ou a correção necessária.
+  - Compatibilidade e layout: preserve conteúdo, qualidade visual e carregamento comparável entre os ambientes citados. Elementos devem ficar visíveis e alinhados, sem cortes ou sobreposição. Em modais, cubra empilhamento acima do conteúdo, botões clicáveis, backdrop e foco do teclado; sugira fechamento por teclado quando compatível com a ação e trate dimensões como proposta se não informadas.
+  - Cálculos e contagens: explicite fórmula, base, subtotal, ajuste e total. Contagens devem corresponder aos registros realmente elegíveis, com os mesmos filtros e status, refletindo alterações sem exigir recarga manual como proposta quando a atualização não estiver definida. Se a regra financeira estiver conflitante, não escolha arbitrariamente uma das fontes: proponha centralizar e documentar a regra, com a decisão de produto pendente.
+  - Integração e pagamento: defina endpoint, evento recebido, confirmação HTTP proposta quando ausente e transição de estado explícita. Pagamento aprovado deve resultar em pedido correspondente, sem cobrança duplicada. Inclua confirmação ao cliente e auditoria pertinente como requisitos propostos quando ausentes. Timeouts precisam encerrar o loading, informar o estado e oferecer consulta de status ou nova tentativa segura.
+  - Segurança: validar autorização antes de devolver dados, negar acesso indevido e permitir explicitamente os acessos próprios e administrativos previstos. Recomende middleware de autorização e auditoria para quebra de acesso. Em XSS, cubra sanitização, renderização segura como texto, validação também no backend e CSP como defesa adicional proposta, sem afirmar que uma técnica isolada elimina todos os vetores.
+  - Desempenho: para ausência de índice, sugerir índice na coluna informada e otimização da consulta; para N+1, agregar ou carregar relacionamentos em conjunto, com índices pertinentes. Para listas móveis pesadas, propor paginação, carregamento em background e reaproveitamento eficiente de itens, por exemplo RecyclerView/ViewHolder em Android nativo, sem presumir que essa seja a stack existente. Meça no volume e na condição de pico citados.
+  - Cache e exportação: atualizar ou invalidar cache após mudanças relevantes, com política de atualização definida ou proposta. Para exportações pesadas, propor processamento isolado em background, notificação de conclusão e streaming/lotes; os resultados são respeitar o limite de memória e preservar outras requisições.
+  - Concorrência e limites: impedir ultrapassagem com atualização atômica ou transação. Em estoque indisponível, bloquear a finalização, avisar já na inclusão quando possível e orientar a remover o item ou aguardar reposição. Reserva temporária pode ser proposta com prazo explicitamente sugerido. Para pagamentos, sugerir idempotência, retry limitado com backoff e circuit breaker quando a falha de integração justificar; investigar o uso do pool diante de esgotamento relatado, sem afirmar que aumentar seu tamanho basta.
+  - Sincronização offline: detectar conflitos, preservar as versões e notificar os envolvidos; propor resolução manual quando não houver política definida, com merge automático somente quando seguro. Recomendar histórico e mecanismo de detecção como versionamento ou vector clocks; CRDT somente se pertinente. Retomar anexos de checkpoints, mostrar progresso e manter na fila e avisar após esgotar tentativas. Respeitar timestamps de origem e dependências entre criar, editar e excluir, evitando aplicação parcial ou duplicada. Processar filas grandes em lotes, liberar memória e mostrar progresso, com pausa e retomada propostas se úteis. Preservar nos testes os tamanhos, tentativas e limites recebidos.
 
   # CONCISÃO E QUALIDADE
   - Seja prescritivo sobre o resultado. Não use critérios como "seguir a regra prevista", "convergir para um estado consistente", "evitar degradação severa" ou "funcionar corretamente" sem definir o resultado.
