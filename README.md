@@ -277,7 +277,7 @@ PYTHON
 
 Guarde a URL retornada e confira o acesso sem autenticação. Evite compartilhar novamente depois de registrar o endereço, pois o link pode mudar.
 
-As capturas em `docs/evidencias/` mostram o experimento com **15 exemplos**, as **cinco médias acima de 0,8**, as notas por exemplo e a confirmação de aprovação no terminal.
+As capturas em `docs/evidencias/` mostram o experimento com **15 exemplos**, as **cinco médias acima de 0,8**, as notas por exemplo, a confirmação de aprovação no terminal e os feedbacks dos traces de um caso simples, um médio e um complexo.
 
 | Evidência | Registro |
 | --- | --- |
@@ -286,9 +286,9 @@ As capturas em `docs/evidencias/` mostram o experimento com **15 exemplos**, as 
 | Avaliação detalhada dos 15 exemplos. | [Notas por exemplo](docs/evidencias/avaliacao-15-exemplos.png). |
 | Confirmação da aprovação pelo avaliador. | [Resultado no terminal](docs/evidencias/resultado-terminal-aprovado.png). |
 | Comparação das iterações. | [Experimentos do dataset](https://smith.langchain.com/public/f4f47f9e-2f88-4cac-9c1e-568c8f4970a9/d). |
-| Trace de um exemplo simples. | A preencher com link ou captura. |
-| Trace de um exemplo médio. | A preencher com link ou captura. |
-| Trace de um exemplo complexo. | A preencher com link ou captura. |
+| Trace de um exemplo simples: adicionar ao carrinho. | [Entrada e feedback do trace](docs/evidencias/trace-simples.png). |
+| Trace de um exemplo médio: webhook de pagamento. | [Feedback do trace](docs/evidencias/trace-medio.png). |
+| Trace de um exemplo complexo: checkout com múltiplas falhas. | [Feedback do trace](docs/evidencias/trace-complexo.png). |
 
 #### Dashboard do experimento final
 
@@ -302,4 +302,32 @@ As capturas em `docs/evidencias/` mostram o experimento com **15 exemplos**, as 
 
 ![Saída do avaliador confirmando que todas as métricas atingiram pelo menos 0,8](docs/evidencias/resultado-terminal-aprovado.png)
 
-Os traces permitem inspecionar entradas, mensagens, respostas, chamadas e feedbacks. Use essas informações para explicar os resultados dos exemplos selecionados.
+#### Traces dos exemplos selecionados
+
+As três capturas mostram o painel **Feedback** do run **Target**, com as cinco notas e a justificativa do avaliador de F1-Score. No exemplo simples, a entrada `bug_report` também está visível. As notas coincidem com os respectivos registros na tabela dos 15 exemplos do experimento final.
+
+| Caso | Clarity | Correctness | F1-Score | Helpfulness | Precision |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Simples — adicionar ao carrinho | 0,84 | 0,8719 | 0,9137 | 0,835 | 0,83 |
+| Médio — webhook de pagamento | 0,80 | 0,8049 | 0,8098 | 0,80 | 0,80 |
+| Complexo — checkout | 0,93 | 0,8922 | 0,8845 | 0,915 | 0,90 |
+
+Todas as notas desses três registros atingem pelo menos 0,8.
+
+##### Trace simples: adicionar ao carrinho
+
+O exemplo 1 de [bug_to_user_story.jsonl](datasets/bug_to_user_story.jsonl) relata que o botão de adicionar ao carrinho não funciona no produto ID 1234. O feedback reconhece a cobertura do fluxo principal, incluindo confirmação visual e atualização do carrinho, e aponta critérios extras que reduzem a precisão.
+
+![Trace do caso simples no LangSmith, com a entrada do bug, as cinco notas e a justificativa do F1-Score de 0,9137](docs/evidencias/trace-simples.png)
+
+##### Trace médio: webhook de pagamento
+
+O exemplo 6 relata um pagamento aprovado cujo webhook retorna HTTP 500, mantendo o pedido pendente. O feedback reconhece a cobertura da integração e da atualização de status, mas aponta omissões em relação à referência, como o email de confirmação e a auditoria do processamento bem-sucedido.
+
+![Feedback do trace do caso médio no LangSmith, com as cinco notas e a justificativa do F1-Score de 0,8098](docs/evidencias/trace-medio.png)
+
+##### Trace complexo: checkout com múltiplas falhas
+
+O exemplo 13 reúne XSS no campo de cupom, falhas na integração de pagamento, uso de cupons acima do limite e loading infinito após timeout. O feedback reconhece a cobertura dos principais problemas, incluindo idempotência e concorrência, e identifica detalhes técnicos da referência que não foram incluídos.
+
+![Feedback do trace do caso complexo no LangSmith, com as cinco notas e a justificativa do F1-Score de 0,8845](docs/evidencias/trace-complexo.png)
