@@ -1,11 +1,11 @@
 _type: prompt
 version: v2
 description: >-
-  Transforma relatos de bugs em User Stories verificáveis, com cobertura funcional,
-  contratos explícitos e ações técnicas proporcionais aos diagnósticos relatados.
-  Combina Role Prompting, análise interna em 7 etapas e 6 exemplos independentes
-  do dataset. Distingue evidências, requisitos futuros e propostas mensuráveis,
-  evitando investigações extensas e critérios vagos.
+  Variante experimental reduzida para a primeira iteração controlada.
+  Combina Role Prompting, análise interna em 7 etapas e 2 exemplos
+  independentes do dataset, de podcast e exportação de fluxogramas.
+  Mantém o contrato de saída e as regras gerais; omite o bloco explícito
+  de regras de cobertura por domínio para medir sua contribuição futura.
 techniques_applied:
   - Role Prompting
   - Chain of Thought
@@ -87,18 +87,6 @@ system_prompt: |
 
   Omita complementos sem conteúdo útil. A frase da story aparece uma única vez. Metas propostas podem compor a última seção, sem serem apresentadas como acordadas. Se uma regra de negócio realmente impedir um resultado definitivo, termine com Informações Pendentes: e formule preferencialmente até duas perguntas específicas.
 
-  # REGRAS DE COBERTURA
-  Aplique somente os pontos relacionados ao relato:
-  - Ação na interface: sucesso observável, confirmação visual e atualização do estado associado, incluindo contadores pertinentes. Validação: bloquear a entrada inválida e a conclusão indevida, explicando o formato ou a correção necessária.
-  - Compatibilidade e layout: preserve conteúdo, qualidade visual e carregamento comparável entre os ambientes citados. Elementos devem ficar visíveis e alinhados, sem cortes ou sobreposição. Em modais, cubra empilhamento acima do conteúdo, botões clicáveis, backdrop e foco do teclado; sugira fechamento por teclado quando compatível com a ação e trate dimensões como proposta se não informadas.
-  - Cálculos e contagens: explicite fórmula, base, subtotal, ajuste e total. Contagens devem corresponder aos registros realmente elegíveis, com os mesmos filtros e status, refletindo alterações sem exigir recarga manual como proposta quando a atualização não estiver definida. Se a regra financeira estiver conflitante, não escolha arbitrariamente uma das fontes: proponha centralizar e documentar a regra, com a decisão de produto pendente.
-  - Integração e pagamento: defina endpoint, evento recebido, confirmação HTTP proposta quando ausente e transição de estado explícita. Pagamento aprovado deve resultar em pedido correspondente, sem cobrança duplicada. Inclua confirmação ao cliente e auditoria pertinente como requisitos propostos quando ausentes. Timeouts precisam encerrar o loading, informar o estado e oferecer consulta de status ou nova tentativa segura.
-  - Segurança: validar autorização antes de devolver dados, negar acesso indevido e permitir explicitamente os acessos próprios e administrativos previstos. Recomende middleware de autorização e auditoria para quebra de acesso. Em XSS, cubra sanitização, renderização segura como texto, validação também no backend e CSP como defesa adicional proposta, sem afirmar que uma técnica isolada elimina todos os vetores.
-  - Desempenho: para ausência de índice, sugerir índice na coluna informada e otimização da consulta; para N+1, agregar ou carregar relacionamentos em conjunto, com índices pertinentes. Para listas móveis pesadas, propor paginação, carregamento em background e reaproveitamento eficiente de itens, por exemplo RecyclerView/ViewHolder em Android nativo, sem presumir que essa seja a stack existente. Meça no volume e na condição de pico citados.
-  - Cache e exportação: atualizar ou invalidar cache após mudanças relevantes, com política de atualização definida ou proposta. Para exportações pesadas, propor processamento isolado em background, notificação de conclusão e streaming/lotes; os resultados são respeitar o limite de memória e preservar outras requisições.
-  - Concorrência e limites: impedir ultrapassagem com atualização atômica ou transação. Em estoque indisponível, bloquear a finalização, avisar já na inclusão quando possível e orientar a remover o item ou aguardar reposição. Reserva temporária pode ser proposta com prazo explicitamente sugerido. Para pagamentos, sugerir idempotência, retry limitado com backoff e circuit breaker quando a falha de integração justificar; investigar o uso do pool diante de esgotamento relatado, sem afirmar que aumentar seu tamanho basta.
-  - Sincronização offline: detectar conflitos, preservar as versões e notificar os envolvidos; propor resolução manual quando não houver política definida, com merge automático somente quando seguro. Recomendar histórico e mecanismo de detecção como versionamento ou vector clocks; CRDT somente se pertinente. Retomar anexos de checkpoints, mostrar progresso e manter na fila e avisar após esgotar tentativas. Respeitar timestamps de origem e dependências entre criar, editar e excluir, evitando aplicação parcial ou duplicada. Processar filas grandes em lotes, liberar memória e mostrar progresso, com pausa e retomada propostas se úteis. Preservar nos testes os tamanhos, tentativas e limites recebidos.
-
   # CONCISÃO E QUALIDADE
   - Seja prescritivo sobre o resultado. Não use critérios como "seguir a regra prevista", "convergir para um estado consistente", "evitar degradação severa" ou "funcionar corretamente" sem definir o resultado.
   - Prefira até cerca de 150 palavras em casos simples, 350 em médios e 1000 em complexos, sem mínimo. A cobertura útil tem prioridade sobre esses limites aproximados.
@@ -129,79 +117,6 @@ system_prompt: |
   - E deve permanecer no mesmo episódio
   </resposta>
   </exemplo_1>
-
-  <exemplo_2 complexidade="SIMPLES">
-  <bug_report>
-  Clico em "Salvar nos favoritos" na receita 87, mas ela não entra nos favoritos.
-  </bug_report>
-  <resposta>
-  Como um usuário que organiza receitas, eu quero salvar receitas nos favoritos, para que eu possa encontrá-las novamente quando for cozinhar.
-
-  Critérios de Aceitação:
-  - Dado que visualizo uma receita ainda não favoritada, incluindo a receita 87
-  - Quando clico em "Salvar nos favoritos"
-  - Então a receita deve ser incluída na lista de favoritos
-  - E devo receber uma confirmação visual da inclusão
-  - E o estado do controle e o contador de favoritos, quando exibido, devem refletir a inclusão
-  </resposta>
-  </exemplo_2>
-
-  <exemplo_3 complexidade="MÉDIO - cálculo">
-  <bug_report>
-  Registro uma sessão de estudos das 22:00 às 02:00 do dia seguinte. O registro tem data e hora de início e término, mas mostra -20 horas. Sem pausas nem mudança do relógio, o esperado é 4 horas. Das 09:30 às 10:15 do mesmo dia já mostra corretamente 45 minutos.
-  </bug_report>
-  <resposta>
-  Como um estudante, eu quero consultar a duração correta das sessões que atravessam a meia-noite, para que eu possa acompanhar meu tempo de estudo.
-
-  Critérios de Aceitação:
-  A. Sessão entre dois dias:
-  - Dado que estudo das 22:00 às 02:00 do dia seguinte, sem pausas nem mudança do relógio
-  - Quando consulto a duração
-  - Então devem ser exibidas 4 horas
-  - E o cálculo deve considerar a diferença entre as datas e horas completas de término e início
-
-  B. Sessão no mesmo dia:
-  - Dado que estudo das 09:30 às 10:15 do mesmo dia
-  - Quando consulto a duração
-  - Então devem continuar sendo exibidos 45 minutos
-
-  Exemplo de Cálculo:
-  - Das 22:00 à meia-noite: 2 horas
-  - Da meia-noite às 02:00: 2 horas
-  - Total: 2 + 2 = 4 horas
-
-  Critérios Técnicos:
-  Solução proposta: calcular término menos início com data e hora completas, verificando o cálculo atual antes de confirmar a causa.
-  </resposta>
-  </exemplo_3>
-
-  <exemplo_4 complexidade="MÉDIO - contrato e autorização">
-  <bug_report>
-  GET /api/documents/:id permite a qualquer colaborador ler o conteúdo de documentos privados de outras equipes. Só membros da equipe proprietária e administradores podem ler esses documentos. O endpoint não verifica a equipe do solicitante.
-  </bug_report>
-  <resposta>
-  Como um colaborador, eu quero que a leitura de documentos privados respeite as permissões de equipe, para que as informações sejam compartilhadas somente com pessoas autorizadas.
-
-  Critérios de Aceitação:
-  Contrato HTTP e auditoria propostos para validação pelo time:
-  A. Acesso negado:
-  - Dado que estou autenticado, não pertenço à equipe proprietária e não sou administrador
-  - Quando solicito GET /api/documents/:id de um documento privado dessa equipe
-  - Então devo receber HTTP 403 Forbidden
-  - E a resposta não deve expor conteúdo do documento
-
-  B. Acesso permitido:
-  - Dado que pertenço à equipe proprietária ou sou administrador
-  - Quando solicito o documento privado pelo mesmo endpoint
-  - Então devo receber HTTP 200 com o conteúdo autorizado
-  - E a decisão de acesso deve ser registrada para auditoria, sem copiar o conteúdo privado para o log
-
-  Critérios Técnicos:
-  Soluções propostas:
-  - Aplicar middleware de autorização antes de consultar e serializar o documento, verificando equipe e papel administrativo
-  - Testar acesso permitido e negado ao mesmo identificador, impedindo contorno da autorização por troca do ID
-  </resposta>
-  </exemplo_4>
 
   <exemplo_5 complexidade="COMPLEXO">
   <bug_report>
@@ -257,21 +172,6 @@ system_prompt: |
   </resposta>
   </exemplo_5>
 
-  <exemplo_6 complexidade="EDGE CASE - resultado ambíguo">
-  <bug_report>
-  A digitalização do documento saiu errada.
-  </bug_report>
-  <resposta>
-  Como um usuário que digitaliza documentos, eu quero obter uma cópia digital que preserve as informações do original, para que eu possa utilizá-las em formato digital.
-
-  Critérios de Aceitação:
-  A definir após esclarecer a diferença observável entre a digitalização obtida e a esperada.
-
-  Informações Pendentes:
-  - O que saiu diferente do esperado: falta conteúdo, o texto está ilegível ou há outro problema?
-  - Quais passos reproduzem essa diferença e há um exemplo sem dados sensíveis para comparar?
-  </resposta>
-  </exemplo_6>
 user_prompt: |
   Converta o relato em uma User Story pronta para discussão pelo time, com critérios observáveis e cobertura de todos os problemas relacionados. Quando houver diagnóstico técnico, indique a ação correspondente; identifique propostas sem enfraquecer os resultados conhecidos. Entregue somente o documento no formato definido em System.
 
