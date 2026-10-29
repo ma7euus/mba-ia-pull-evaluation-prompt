@@ -39,15 +39,43 @@ DICAS DE IMPLEMENTAÇÃO:
 import os
 import sys
 import json
+import hashlib
+from pathlib import Path
 from dotenv import load_dotenv
 from langsmith import Client
-from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.prompts import (
+    ChatPromptTemplate,
+    HumanMessagePromptTemplate,
+    PromptTemplate,
+    SystemMessagePromptTemplate,
+)
 from utils import (
-    PROJECT_ROOT, load_yaml, check_env_vars, print_section_header,
-    prompt_fingerprint, validate_prompt_structure,
+    load_yaml, check_env_vars, print_section_header, validate_prompt_structure,
 )
 
 load_dotenv()
+
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+
+
+def prompt_fingerprint(prompt: ChatPromptTemplate) -> str:
+    """Identifica as mensagens efetivas, sem metadados locais ou do Hub."""
+    if not isinstance(prompt, ChatPromptTemplate):
+        raise ValueError("O prompt deve ser um ChatPromptTemplate")
+    if prompt.input_variables != ["bug_report"] or prompt.partial_variables:
+        raise ValueError("O prompt deve depender somente da variável bug_report")
+    if len(prompt.messages) != 2 or not isinstance(
+        prompt.messages[0], SystemMessagePromptTemplate
+    ) or not isinstance(prompt.messages[1], HumanMessagePromptTemplate):
+        raise ValueError("O prompt deve conter uma mensagem System e uma User")
+
+    messages = []
+    for role, message in zip(("system", "human"), prompt.messages):
+        if not isinstance(message.prompt, PromptTemplate) or message.prompt.template_format != "f-string":
+            raise ValueError("As mensagens devem usar templates de texto f-string")
+        messages.append({"role": role, "content": message.prompt.template})
+    canonical = json.dumps(messages, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+    return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
 
 
 def push_prompt_to_langsmith(prompt_name: str, prompt_data: dict) -> bool:

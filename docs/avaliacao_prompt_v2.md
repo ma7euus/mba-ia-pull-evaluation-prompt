@@ -1,6 +1,8 @@
 # Análise da avaliação do prompt v2
 
-A revisão usa dois arquivos fornecidos pelo usuário: o CSV inicial `promptmateusmba-bug_to_user_story_v2-16d0cf3c.csv` e o [dataset com comentários dos juízes](../datasets/dataset_149f4388-af23-4269-b6a8-203bf9af378f.csv). O segundo exporta 36 linhas de avaliação, cada uma com relato, referência, resposta gerada, cinco notas e justificativas em `results`.
+Esta análise descreve a [referência aprovada](iteracoes/referencia/bug_to_user_story_v2_aprovado.yml). O novo ciclo de três rodadas foi concluído, com médias **0,8492**, **0,8659** e **0,8548**, todas aprovadas. O prompt ativo é a versão completa da [iteração 03](iteracoes/iteracao-03.md), commit Git [05bf7a2](https://github.com/ma7euus/mba-ia-pull-evaluation-prompt/commit/05bf7a2e68a5c9a7e8a5aecc3b014ef3cf7c8807) e experimento `1419119b`. As notas abaixo pertencem à referência histórica; os resultados atuais estão nos registros de cada rodada e em [Resultados](resultados/README.md).
+
+A análise histórica usa dois arquivos fornecidos pelo usuário: o CSV inicial `promptmateusmba-bug_to_user_story_v2-16d0cf3c.csv` e `dataset_149f4388-af23-4269-b6a8-203bf9af378f.csv`. O segundo exporta 36 linhas de avaliação, cada uma com relato, referência, resposta gerada, cinco notas e justificativas em `results`. As notas e justificativas das duas avaliações completas foram preservadas em [resultados.json](iteracoes/resultados.json). A [auditoria da etapa 11](iteracoes/etapa11.md) acrescenta a avaliação final aprovada, a identificação do prompt e a análise dos casos fracos.
 
 ## Separação dos experimentos
 
@@ -14,7 +16,7 @@ O arquivo não representa uma única execução. As médias precisam ser calcula
 
 O experimento de seis casos é parcial; não permite comparar a média geral diretamente com os de 15. No `2989088b`, 11 dos 15 exemplos ficam abaixo de 0,8 em F1. No `16d0cf3c`, são 12 dos 15. A aprovação do script considera as médias das métricas no dataset, não a aprovação individual de todos os exemplos.
 
-As 15 respostas de `16d0cf3c` são idênticas às do CSV inicial. Nenhuma dessas notas comprova o desempenho do YAML após as revisões desta sessão.
+As 15 respostas de `16d0cf3c` são idênticas às do CSV inicial. Esses registros históricos não identificam o commit do prompt avaliado. A correspondência entre o YAML aprovado e a avaliação final `8c034dd1` foi confirmada separadamente na auditoria da etapa 11.
 
 ## O que os juízes apontaram
 
@@ -50,30 +52,33 @@ Algumas referências contêm decisões adicionais: Android em dois segundos e p�
 
 As respostas do CSV ainda contêm listas extensas de hipóteses, pendências e cenários provisórios para necessidades claras, padrões já restringidos no YAML local anterior. Isso sugere uso de uma versão diferente no Hub, mas não prova qual: o arquivo não contém hash das mensagens nem commit do prompt. O campo `revision_id=a94ce44-dirty` identifica o código Git, não a versão publicada.
 
-Para evitar avaliar uma revisão diferente da editada:
+O push mantém os seguintes registros de identificação:
 
 - O push calcula SHA256 das mensagens System/User e registra a identificação no prompt e na descrição do commit.
-- A avaliação calcula o mesmo SHA256 do YAML local e das mensagens recuperadas do Hub, sem cache.
-- Se houver diferença, interrompe antes de criar o modelo ou iniciar o experimento.
-- O experimento registra `prompt_local_sha256`, `prompt_remote_sha256` e `prompt_hub_commit_hash`.
 - O hash ignora metadados injetados pelo Hub e considera os templates originais, preservando a distinção entre chaves literais e variáveis.
 - As tags publicadas refletem as técnicas reais do YAML, sem declarar Skeleton of Thought.
 
-## Validação e próxima medição
+Nas execuções arquivadas com rastreabilidade, o avaliador também comparava o SHA256 do YAML local ao das mensagens recuperadas do Hub sem cache, interrompia a execução em caso de divergência e registrava `prompt_local_sha256`, `prompt_remote_sha256` e `prompt_hub_commit_hash` no experimento. Esses registros históricos foram preservados.
+
+Para atender à exigência do enunciado de preservar os arquivos fornecidos, `src/evaluate.py` e `src/utils.py` foram restaurados à versão original. O avaliador atual recupera a versão publicada no Hub sem comparar hashes nem acrescentar esses três metadados. Antes de uma nova avaliação, faça o push e confira no Hub o conteúdo e o commit que será avaliado.
+
+## Validação e avaliação histórica
 
 ```bash
 PYTHONDONTWRITEBYTECODE=1 venv/bin/python -m pytest tests/ -q -p no:cacheprovider
 ```
 
-Resultado: **41 testes passaram**, incluindo os 24 de estrutura/renderização e 17 testes com mocks para identificar a versão e bloquear divergências. Esses testes não geram respostas nem estimam as novas métricas.
+Resultado conferido na etapa 11: **24 testes passaram**, correspondentes à suíte atual de estrutura e renderização. Esses testes não geram respostas nem estimam métricas.
 
-Nenhuma publicação ou nova avaliação externa foi executada nesta revisão. A execução pela API permanece dependente da autorização explícita solicitada anteriormente; a revisão automática rejeitou o envio dos relatos à OpenAI sem essa autorização. Portanto, não há notas novas comprovando > 0,8.
+A consulta à API do LangSmith confirmou 15 gerações sem erro e 75 feedbacks na avaliação final `8c034dd1`: Helpfulness **0,8697**, Correctness **0,8660**, F1-Score **0,8626**, Clarity **0,8700**, Precision **0,8693** e média geral **0,8675**. O commit do Hub `42343f3e` e o SHA256 das mensagens coincidem com a cópia da referência aprovada e com os metadados do experimento.
 
-Para medir a revisão no fluxo existente:
+A auditoria recuperou os registros existentes e manteve o prompt aprovado, sem nova publicação ou geração. O histórico, as hipóteses retrospectivas, as execuções excluídas e a revisão dos cinco casos fracos estão em [Etapa 11](iteracoes/etapa11.md).
+
+Para medir uma futura alteração no fluxo existente:
 
 ```bash
 venv/bin/python src/push_prompts.py
 venv/bin/python src/evaluate.py
 ```
 
-O push publica o prompt como público no Hub. A avaliação usa essa versão após compará-la com o YAML, aplica os mesmos juízes aos 15 casos e imprime o link do experimento. Preserve os modelos entre rodadas, registre os hashes e compare os 15 casos completos antes de concluir que a meta foi atingida.
+O push publica o prompt como público no Hub. A avaliação recupera o prompt publicado, aplica os mesmos juízes aos 15 casos e imprime o link do experimento. Preserve os modelos entre rodadas, registre a hipótese antes da edição e guarde o hash exibido no push e o commit do Hub. Confira falhas de geração e dos juízes antes de usar as médias.

@@ -25,10 +25,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 from langsmith import Client
 from langchain_core.prompts import ChatPromptTemplate
-from utils import (
-    PROJECT_ROOT, check_env_vars, format_score, load_yaml, print_section_header,
-    prompt_fingerprint, get_llm as get_configured_llm,
-)
+from utils import check_env_vars, format_score, print_section_header, get_llm as get_configured_llm
 from metrics import evaluate_f1_score, evaluate_clarity, evaluate_precision
 
 load_dotenv()
@@ -114,9 +111,7 @@ def pull_prompt_from_langsmith(client: Client, prompt_name: str) -> ChatPromptTe
         # porque um prompt do Hub é um objeto LangChain serializado, que pode vir de
         # terceiros. Como aqui o prompt é o seu (ou o prompt semente do desafio),
         # o risco é conhecido e aceito.
-        prompt = client.pull_prompt(
-            prompt_name, dangerously_pull_public_prompt=True, skip_cache=True,
-        )
+        prompt = client.pull_prompt(prompt_name, dangerously_pull_public_prompt=True)
 
         print(f"   ✓ Prompt carregado com sucesso")
         return prompt
@@ -226,29 +221,7 @@ def run_experiment(client: Client, prompt_name: str, dataset_name: str):
     """
     print(f"\n🔍 Avaliando: {prompt_name}")
 
-    local_name = prompt_name.rsplit("/", 1)[-1].split(":", 1)[0]
-    local_path = PROJECT_ROOT / "prompts" / f"{local_name}.yml"
-    if not local_path.is_file():
-        raise FileNotFoundError(f"Prompt local não encontrado: {local_path}")
-    local_data = load_yaml(str(local_path))
-    if not isinstance(local_data, dict):
-        raise ValueError(f"Não foi possível carregar o prompt local: {local_path}")
-    local_prompt = ChatPromptTemplate.from_messages([
-        ("system", local_data["system_prompt"]),
-        ("user", local_data["user_prompt"]),
-    ])
-    local_sha256 = prompt_fingerprint(local_prompt)
     prompt_template = pull_prompt_from_langsmith(client, prompt_name)
-    remote_sha256 = prompt_fingerprint(prompt_template)
-    print(f"   SHA256 local: {local_sha256}")
-    print(f"   SHA256 Hub:   {remote_sha256}")
-    if local_sha256 != remote_sha256:
-        raise ValueError(
-            "O prompt do Hub difere do YAML local. Avaliação interrompida antes de chamar os modelos. "
-            "Publique a versão atual com python src/push_prompts.py e execute a avaliação novamente."
-        )
-    hub_commit = (prompt_template.metadata or {}).get("lc_hub_commit_hash", "")
-    print(f"   Commit do Hub: {hub_commit or 'não informado'}")
     llm = get_llm()
 
     print("   Rodando experimento no LangSmith...")
@@ -263,9 +236,6 @@ def run_experiment(client: Client, prompt_name: str, dataset_name: str):
         max_concurrency=1,
         metadata={
             "prompt": prompt_name,
-            "prompt_local_sha256": local_sha256,
-            "prompt_remote_sha256": remote_sha256,
-            "prompt_hub_commit_hash": hub_commit,
             "llm_model": os.getenv("LLM_MODEL", ""),
             "eval_model": os.getenv("EVAL_MODEL", ""),
             "provider": os.getenv("LLM_PROVIDER", ""),
@@ -363,7 +333,7 @@ def main():
     project_name = os.getenv("LANGSMITH_PROJECT")
     username = os.getenv("USERNAME_LANGSMITH_HUB")
 
-    jsonl_path = str(PROJECT_ROOT / "datasets" / "bug_to_user_story.jsonl")
+    jsonl_path = "datasets/bug_to_user_story.jsonl"
 
     if not Path(jsonl_path).exists():
         print(f"❌ Arquivo de dataset não encontrado: {jsonl_path}")

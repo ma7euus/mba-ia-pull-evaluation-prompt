@@ -1,0 +1,1070 @@
+{
+  "schema_version": 1,
+  "audited_at": "2026-10-29T00:25:06.722406+00:00",
+  "threshold": 0.8,
+  "historical_limit": "As hipóteses foram reconstruídas retrospectivamente. Os CSVs antigos não identificam commit ou SHA256 das mensagens; não comprovam uma revisão distinta para cada avaliação. Somente a avaliação final tem identidade do prompt comprovada.",
+  "dataset": {
+    "path": "datasets/bug_to_user_story.jsonl",
+    "file_sha256": "4b1ef15e41437f7823daae6f0cef92a7ba16b19352d4d3b36a1bbc69db48f60b",
+    "canonical_examples_sha256": "d0433c7c12756253333d38ab3c4310a81616af0a5c56a53ad1b24c140ec74dad",
+    "canonical_hash_method": "SHA256 do JSON UTF-8 (ensure_ascii=False, sort_keys=True, separators=(',', ':')) da lista ordenada dos SHA256 dos pares inputs/outputs, serializados da mesma forma.",
+    "cases": 15,
+    "langsmith_id": "5d70698d-a1a2-4bec-8551-270fbf6165b3",
+    "local_matches_remote": true,
+    "all_experiments_match_local_inputs_and_references": true,
+    "complexity": {
+      "simple": 5,
+      "medium": 7,
+      "complex": 3
+    }
+  },
+  "configuration": {
+    "provider": "openai",
+    "llm_model": "gpt-5.4",
+    "eval_model": "gpt-5.5"
+  },
+  "prompt_revisions": [
+    {
+      "commit": "b6ac3f787833af6b826dcccf598e4ab36851e86dcea821fcad98a95b548f9422",
+      "created": "2026-10-26T04:50:09.196551Z",
+      "sha256": "ef8ab05f6e8e51e751937bd4b6417d7be6d324068431c1dc7e2c68dd46d71aa8",
+      "system_characters": 19513
+    },
+    {
+      "commit": "ec5e2ae7689905ace3e7f6d4e30681ea1056ad213ec67a5ffa977c676ad6785e",
+      "created": "2026-10-28T03:13:49.055425Z",
+      "sha256": "c292c6ea86ac133fbe0d0f38ec01aaaa16c1d76bff174115d10bce713b58e893",
+      "system_characters": 16253
+    },
+    {
+      "commit": "42343f3e00c6f179ab050fc92b67e10b81970d7b85bd24923a38c58bef58153c",
+      "created": "2026-10-28T05:05:04.797594Z",
+      "sha256": "727f2c278765824fe9cb44d329a540a2a3979c98973204a94d9edf8d9e2433d9",
+      "system_characters": 20502
+    }
+  ],
+  "historical_comments_source": {
+    "file": "dataset_149f4388-af23-4269-b6a8-203bf9af378f.csv",
+    "sha256": "36db765d402ea1f43ac86154c76b59a510c64176812f86f77fb6fcbf872120aa"
+  },
+  "experiments": [
+    {
+      "name": "promptmateusmba-bug_to_user_story_v2-2989088b",
+      "id": "d372f7e7-72fa-40a1-909a-b27c0917bbd7",
+      "source": "promptmateusmba-bug_to_user_story_v2-2989088b.csv",
+      "source_sha256": "39c992b682e499098e0d934fd832ab12010ed1a5dd31f4d341a818158474372d",
+      "configuration": {
+        "provider": "openai",
+        "llm_model": "gpt-5.4",
+        "eval_model": "gpt-5.5"
+      },
+      "git_revision": "a94ce44-dirty",
+      "prompt_hub_commit": null,
+      "prompt_sha256": null,
+      "cases": [
+        {
+          "case": 1,
+          "run_id": "01a180d3-bc45-7076-915a-98ff074dcfaa",
+          "example_sha256": "44fbbb3c75b9e07dd507d0127bb4f11680d34fbc3f75ff3227ba3910aae7e08e",
+          "scores": {
+            "helpfulness": 0.8,
+            "correctness": 0.8167,
+            "f1_score": 0.8135,
+            "clarity": 0.78,
+            "precision": 0.82
+          },
+          "comments": {
+            "helpfulness": "Média entre Clarity e Precision",
+            "correctness": "Média entre F1-Score e Precision",
+            "f1_score": "A resposta gerada cobre corretamente a história principal: cliente adiciona produto ao carrinho pela página do produto, botão acionado, produto incluído e confirmação visual. Também contextualiza o ID 1234, o que é relevante ao relato. Porém adiciona muitos itens não solicitados, como hipóteses, contexto técnico e informações pendentes, reduzindo a precisão por excesso/desvio do formato esperado. No recall, quase todos os critérios esperados aparecem, mas falta explicitamente o critério de atualização do contador do carrinho.",
+            "clarity": "A resposta é bem organizada, com seções claras para história, critérios, contexto, hipóteses e pendências. A linguagem é simples e compreensível, sem jargões excessivos. Porém, a clareza é parcialmente reduzida pelo uso de 'cenário provisório' e pela inclusão de muitas hipóteses e perguntas, o que torna a resposta menos direta em relação ao objetivo principal. Também é menos concisa que a referência, trazendo informações adicionais úteis para investigação, mas excessivas para uma formulação clara de critérios de aceitação.",
+            "precision": "A resposta não apresenta alucinações graves: o ID 1234 vem da pergunta e as causas são explicitamente tratadas como hipóteses. Porém, adiciona bastante conteúdo não solicitado, como investigação técnica, ambientes, perfis e condições específicas, reduzindo o foco. Em relação à referência, cobre a ideia central de adicionar produto ao carrinho e confirmação visual, mas não inclui claramente o critério de atualização do contador do carrinho e restringe a história ao produto 1234, enquanto a resposta esperada é mais genérica para produtos."
+          },
+          "answer_words": 309
+        },
+        {
+          "case": 2,
+          "run_id": "01a180d3-a6c2-7310-acc8-37616434e788",
+          "example_sha256": "219a585eb711707c0fe3965c7eebb2d823a698c4b035a2c32913e7b85c75fe39",
+          "scores": {
+            "helpfulness": 0.875,
+            "correctness": 0.8621,
+            "f1_score": 0.8242,
+            "clarity": 0.85,
+            "precision": 0.9
+          },
+          "comments": {
+            "helpfulness": "Média entre Clarity e Precision",
+            "correctness": "Média entre F1-Score e Precision",
+            "f1_score": "A resposta gerada cobre corretamente a necessidade principal: validar e-mail no cadastro, detectar ausência de '@', bloquear o prosseguimento e exibir erro visível. Também mantém a estrutura de user story. Porém adiciona itens não solicitados, como cenário de e-mail válido, validação antes da gravação e várias perguntas pendentes, o que reduz a precisão por excesso de informação. No recall, quase todos os critérios esperados estão presentes, mas falta afirmar claramente que a mensagem de erro deve explicar o formato correto do e-mail.",
+            "clarity": "A resposta é bem organizada, com história de usuário, critérios de aceitação, cenários adicionais e dúvidas pendentes em ordem lógica. A linguagem é clara e acessível, embora haja uma formulação um pouco confusa em “permitir o prosseguimento dessa validação no fluxo normal”. O comportamento esperado fica majoritariamente sem ambiguidades. Porém, a resposta é mais longa que o necessário para o problema apresentado, incluindo cenários e perguntas pendentes que reduzem a concisão.",
+            "precision": "A resposta está bem alinhada à solicitação e à referência: transforma o problema em história de usuário e critérios que bloqueiam cadastro com email sem '@', exibem erro e evitam gravação. Não há alucinações relevantes; as perguntas pendentes são úteis, embora adicionem escopo não presente na referência. O foco é levemente reduzido por incluir cenário adicional e dúvidas sobre regras mais amplas de email, obrigatoriedade e fluxos. A correção factual é alta, mas a resposta esperada é mais simples e exige explicitamente explicar o formato correto, o que foi tratado de forma menos direta."
+          },
+          "answer_words": 270
+        },
+        {
+          "case": 3,
+          "run_id": "01a180d3-82c2-715a-a5f9-f0ac3d6d830d",
+          "example_sha256": "1c1c79a868be5bf0babe0eba3ceb7774d448ea581f072c42329ba40bad5d9ac3",
+          "scores": {
+            "helpfulness": 0.82,
+            "correctness": 0.8632,
+            "f1_score": 0.8263,
+            "clarity": 0.74,
+            "precision": 0.9
+          },
+          "comments": {
+            "helpfulness": "Média entre Clarity e Precision",
+            "correctness": "Média entre F1-Score e Precision",
+            "f1_score": "A resposta gerada cobre corretamente o núcleo da história: usuário iOS, tela de perfil, rotação para landscape e necessidade de evitar layout quebrado. Também inclui critérios equivalentes sobre visibilidade, uso e ausência de sobreposição. Porém adiciona muitas informações não solicitadas, como hipóteses técnicas, cenários adicionais e perguntas pendentes, reduzindo a precisão por excesso de conteúdo. O recall é alto, mas não perfeito, pois o critério de elementos permanecerem 'alinhados' não aparece de forma explícita.",
+            "clarity": "A resposta é bem organizada, com seções claras para história, critérios, contexto, hipóteses e pendências. A linguagem é compreensível e direta, embora um pouco mais técnica em alguns pontos. Há pouca ambiguidade no objetivo principal, mas o uso de “cenário provisório” e a grande quantidade de informações pendentes podem transmitir incerteza excessiva. O principal problema é a concisão: a resposta é bem mais longa que o necessário e inclui hipóteses e verificações adicionais que tornam a leitura menos objetiva.",
+            "precision": "A resposta está alinhada ao problema e à referência: transforma o relato em user story e critérios cobrindo iOS, tela de perfil, rotação para landscape, adaptação do layout, visibilidade, usabilidade e ausência de sobreposição/cortes. Não há alucinações factuais relevantes, pois hipóteses e pendências são claramente marcadas como investigação, não como fatos. O foco é levemente reduzido porque adiciona muitos itens não solicitados, como contexto técnico, hipóteses e cenários adicionais, mas todos permanecem relacionados ao bug descrito."
+          },
+          "answer_words": 420
+        },
+        {
+          "case": 4,
+          "run_id": "01a180d3-660d-70e0-808f-eabd8604cf1d",
+          "example_sha256": "51f3eeee34ded0485f5d2b8a928afa4b977a97c92338ce0ffb166d31c79893e3",
+          "scores": {
+            "helpfulness": 0.785,
+            "correctness": 0.6991,
+            "f1_score": 0.6783,
+            "clarity": 0.85,
+            "precision": 0.72
+          },
+          "comments": {
+            "helpfulness": "Média entre Clarity e Precision",
+            "correctness": "Média entre F1-Score e Precision",
+            "f1_score": "A resposta gerada é majoritariamente relevante: trata da divergência entre contador e lista, confiança nos dados e consistência no dashboard. Também adiciona hipóteses úteis, mas várias informações são extras e não estavam na resposta esperada, como filtros, período, paginação, cache e perguntas pendentes. No recall, cobre parcialmente a necessidade de contagem correta e apoio à decisão, mas omite pontos importantes: acesso como admin, atualização em tempo real como critério obrigatório e inclusão apenas de usuários com status \"ativo\". Também foca na lista, não no total real de usuários ativos.",
+            "clarity": "A resposta é muito bem organizada, com seções claras para história, critérios, contexto, hipóteses, cenários e pendências. A linguagem é simples e compreensível, embora um pouco mais técnica em alguns pontos. Há pouca ambiguidade, pois comunica bem o problema e o comportamento esperado, mas algumas hipóteses e informações pendentes ampliam o escopo. A principal fraqueza é a concisão: a resposta é mais longa que o necessário para uma user story simples e inclui detalhes investigativos que poderiam ser resumidos.",
+            "precision": "A resposta é majoritariamente relevante e não afirma como fato muitas suposições, pois marca cache, paginação e filtros como hipóteses. Porém adiciona elementos não presentes na referência, como filtros, período, perfil, paginação e papel de “gestor”. Também não cobre pontos importantes do ground truth: acesso como admin, atualização em tempo real e inclusão apenas de usuários com status “ativo”. O foco na divergência contador/lista é adequado, mas a resposta desloca o critério para consistência com a lista, não necessariamente para o total real de usuários ativos."
+          },
+          "answer_words": 391
+        },
+        {
+          "case": 5,
+          "run_id": "01a180d3-44ef-7ca6-935a-5c80c27621b8",
+          "example_sha256": "7b2a1b1d46b428945d69b391416d003f0aa2f10ee7d787b66e955427272c2e42",
+          "scores": {
+            "helpfulness": 0.76,
+            "correctness": 0.7844,
+            "f1_score": 0.7488,
+            "clarity": 0.7,
+            "precision": 0.82
+          },
+          "comments": {
+            "helpfulness": "Média entre Clarity e Precision",
+            "correctness": "Média entre F1-Score e Precision",
+            "f1_score": "A resposta gerada captura corretamente o problema principal: usuário no Safari deve ver imagens de produtos, com comportamento consistente ao Chrome. Também mantém o formato de história e critérios. Porém adiciona muitas informações não solicitadas, como hipóteses técnicas, perguntas pendentes e cenários provisórios, reduzindo a precisão por excesso. No recall, cobre Safari, página/listagem/detalhe e exibição correta das imagens, mas omite explicitamente dois critérios importantes da resposta esperada: mesma qualidade das imagens em outros navegadores e tempo de carregamento similar.",
+            "clarity": "A resposta é bem organizada, com seções claras para história, critérios, contexto, hipóteses e pendências. A linguagem é em geral compreensível, mas inclui jargões técnicos como PDP, logs de rede e matriz de reprodução, que podem reduzir a clareza para leitores não técnicos. Há alguma ambiguidade ao tratar os cenários como provisórios e depender de muitos esclarecimentos, embora o objetivo principal esteja claro. A principal fraqueza é a concisão: a resposta é excessivamente longa e inclui várias hipóteses e perguntas que não eram necessárias para a formulação esperada.",
+            "precision": "A resposta não apresenta alucinações factuais relevantes; as causas técnicas são formuladas como hipóteses a investigar, não como afirmações. Mantém bom foco ao transformar o problema em história de usuário e critérios para Safari versus Chrome, mas adiciona muitos itens extras não solicitados, como matriz de reprodução, logs e páginas possíveis. Em relação à referência, cobre o essencial: cliente no Safari deve ver imagens dos produtos para avaliar antes da compra. Porém, não inclui explicitamente os critérios de mesma qualidade e tempo de carregamento similar, tornando-a parcialmente incompleta."
+          },
+          "answer_words": 431
+        },
+        {
+          "case": 6,
+          "run_id": "01a180d3-178f-7824-831d-c4c8ba1d8e5b",
+          "example_sha256": "f541791061fcdcc5f17e67c71ccaec04c3f491e8a2d268051074b3bf39ed57ae",
+          "scores": {
+            "helpfulness": 0.785,
+            "correctness": 0.7678,
+            "f1_score": 0.7556,
+            "clarity": 0.79,
+            "precision": 0.78
+          },
+          "comments": {
+            "helpfulness": "Média entre Clarity e Precision",
+            "correctness": "Média entre F1-Score e Precision",
+            "f1_score": "A resposta gerada é majoritariamente correta e relevante: identifica o webhook /api/webhooks/payment, o HTTP 500, pagamento aprovado, pedido pendente e necessidade de atualizar o status. Também adiciona hipóteses úteis, embora algumas sejam extras e não exigidas. Porém, omite critérios importantes da resposta esperada: não exige explicitamente retorno HTTP 200, não afirma claramente mudança para status \"aprovado\", não inclui envio de email de confirmação ao cliente e não define log de auditoria como critério de aceitação, apenas menciona logs de forma investigativa.",
+            "clarity": "A resposta é bem estruturada, com seções claras de critérios, contexto, hipóteses e pendências. A linguagem é compreensível e direta, embora um pouco mais técnica em alguns trechos. Há alguma ambiguidade nos critérios, pois não define claramente o status final esperado nem inclui todos os resultados esperados da referência, como HTTP 200, email e auditoria. A principal fragilidade é a concisão: a resposta é extensa, inclui hipóteses e cenários adicionais que tornam a leitura menos objetiva e parcialmente redundante.",
+            "precision": "A resposta é majoritariamente fiel ao relato: identifica o endpoint /api/webhooks/payment, o HTTP 500, pagamento aprovado e pedido pendente. Não há alucinações fortes, pois itens como autenticação, payload e infraestrutura aparecem como hipóteses, não fatos. Porém, diverge parcialmente da referência ao não exigir explicitamente HTTP 200, não definir a transição exata de 'pendente' para 'aprovado', e omitir email de confirmação e log de auditoria. Também adiciona cenários e critérios técnicos extras, úteis mas não solicitados, reduzindo um pouco o foco."
+          },
+          "answer_words": 628
+        },
+        {
+          "case": 7,
+          "run_id": "01a180d2-eb03-7bc1-92e5-fd52496e3468",
+          "example_sha256": "c902a42e21d1935070d08f7502dbcb7dafa658d85182fd2df1c6111dd3a2f0bd",
+          "scores": {
+            "helpfulness": 0.755,
+            "correctness": 0.7533,
+            "f1_score": 0.7266,
+            "clarity": 0.73,
+            "precision": 0.78
+          },
+          "comments": {
+            "helpfulness": "Média entre Clarity e Precision",
+            "correctness": "Média entre F1-Score e Precision",
+            "f1_score": "A resposta gerada é majoritariamente correta e relevante: cobre volume >1000 registros, timeout do navegador, horário comercial, ausência de índice em data_venda e necessidade de otimização sem apenas aumentar timeout. Porém adiciona muitos itens não solicitados ou especulativos, como cenários adicionais, perguntas pendentes e hipóteses extensas. O principal problema de recall é omitir a meta essencial de desempenho: geração em menos de 30 segundos, inclusive como performance esperada. Também não captura plenamente 'desempenho consistente em horário de pico' e troca a persona de gerente para analista.",
+            "clarity": "A resposta é muito bem organizada, com seções claras, critérios, contexto, hipóteses e pendências. A linguagem é compreensível, embora um pouco formal e técnica. Há alguma ambiguidade porque não define uma meta objetiva de desempenho, como o limite de 30 segundos da referência, e transfere decisões ao time de produto. A concisão é o ponto mais fraco: a resposta é longa, inclui muitas hipóteses e informações pendentes, tornando a comunicação menos direta do que o necessário.",
+            "precision": "A resposta é majoritariamente baseada nos dados fornecidos: timeout de 120s, ausência de índice em data_venda e lentidão em horário comercial. Não há alucinações fortes, pois itens extras são apresentados como hipóteses ou pendências. Porém, perde precisão factual por omitir requisito central da referência: geração em menos de 30 segundos, inclusive para grandes volumes, e por tratar a meta de tempo como indefinida. Também não recomenda diretamente adicionar índice e otimizar a query, apenas sugere validar possibilidades. O foco é bom, mas há excesso de cenários e perguntas adicionais."
+          },
+          "answer_words": 587
+        },
+        {
+          "case": 8,
+          "run_id": "01a180d2-bfb9-7e5d-a8d4-9c407e8442ec",
+          "example_sha256": "c49024d771267f9eb99aea8af9dfc7b3294bd0cd9c6b1ce11c5d60f44dd63f39",
+          "scores": {
+            "helpfulness": 0.765,
+            "correctness": 0.7417,
+            "f1_score": 0.7134,
+            "clarity": 0.76,
+            "precision": 0.77
+          },
+          "comments": {
+            "helpfulness": "Média entre Clarity e Precision",
+            "correctness": "Média entre F1-Score e Precision",
+            "f1_score": "A resposta é majoritariamente correta e relevante: identifica quebra de autorização, bloqueio de usuários comuns, proteção de email/telefone/endereço, acesso próprio e severidade alta. Porém inclui muitas hipóteses e informações pendentes desnecessárias, além de tratar requisitos claros como dúvidas. O recall é moderado: omite HTTP 403 para acesso negado, HTTP 200 e dados completos para admin, log de auditoria como critério obrigatório, OWASP A01 e ação explícita de implementar middleware de autorização. Também deixa regras de admin e acesso próprio vagas.",
+            "clarity": "A resposta é bem estruturada, com seções claras, critérios, contexto, hipóteses e pendências. A linguagem é compreensível e objetiva na maior parte. Porém, há ambiguidades importantes: não define explicitamente HTTP 403, não afirma claramente que admins recebem HTTP 200 nem especifica a ação técnica principal, usando expressões vagas como “regra prevista” e “regra esperada”. Também é menos concisa que o necessário, incluindo hipóteses e perguntas pendentes que alongam a resposta e diluem o objetivo principal.",
+            "precision": "A resposta está majoritariamente alinhada ao problema de autorização e não apresenta alucinações fortes; várias adições são marcadas como hipóteses ou pendências. Porém é menos precisa que a referência: não exige explicitamente HTTP 403 para usuário comum, HTTP 200 com dados completos para admin, log de auditoria, OWASP A01 ou middleware de autorização. Também deixa em aberto se administradores podem acessar todos os dados, embora isso esteja definido na resposta esperada. Mantém bom foco, mas adiciona investigações e cenários além do necessário."
+          },
+          "answer_words": 574
+        },
+        {
+          "case": 9,
+          "run_id": "01a180d2-99f5-704f-a178-4150b8aa43b0",
+          "example_sha256": "c1e940c5b016123b2abad34ea58348d72c1d2fe66b7a74b46fc48eae3ff968d4",
+          "scores": {
+            "helpfulness": 0.92,
+            "correctness": 0.93,
+            "f1_score": 0.9099,
+            "clarity": 0.89,
+            "precision": 0.95
+          },
+          "comments": {
+            "helpfulness": "Média entre Clarity e Precision",
+            "correctness": "Média entre F1-Score e Precision",
+            "f1_score": "A resposta gerada cobre quase todos os pontos essenciais: história do usuário, desconto aplicado sobre a soma dos produtos, valor esperado R$ 1.350, identificação do bug atual de aplicar desconto só no primeiro produto, exemplo de cálculo e contexto técnico. Omissão parcial: não explicita como critério que o detalhamento deve mostrar subtotal, desconto e total, embora apresente isso no exemplo. Há informações extras como hipóteses, perguntas pendentes e cenários adicionais; são relevantes, mas não exigidas, reduzindo levemente a precisão.",
+            "clarity": "A resposta é muito bem organizada, com história de usuário, critérios de aceitação, contexto técnico, hipóteses, cálculo e pendências em ordem lógica. A linguagem é simples e compreensível, sem jargões excessivos. Há pouca ambiguidade: fica claro que o desconto deve incidir sobre a soma dos produtos, embora algumas perguntas pendentes ampliem o escopo. O principal ponto negativo é a concisão: a resposta é mais longa que o necessário e repete informações já presentes no cenário e nos critérios.",
+            "precision": "A resposta está muito alinhada ao ground truth: define a história de usuário, critérios para aplicar 10% sobre R$ 1.500 e chega corretamente a R$ 1.350, além de identificar o bug de aplicar desconto só no primeiro produto gerando R$ 1.400. Não há alucinações relevantes; itens como hipóteses e perguntas pendentes são plausíveis e marcados como investigação. Pequena perda de foco por adicionar cenários e informações pendentes não solicitadas, e por não explicitar nos critérios que o detalhamento deve mostrar subtotal, desconto e total."
+          },
+          "answer_words": 463
+        },
+        {
+          "case": 10,
+          "run_id": "01a180d2-6993-7c18-9bab-9afc142c2187",
+          "example_sha256": "312fd99465f57d6efcc8093e31bc2afe17b29944bc4bb78b87f2c4d3063d6054",
+          "scores": {
+            "helpfulness": 0.805,
+            "correctness": 0.809,
+            "f1_score": 0.798,
+            "clarity": 0.79,
+            "precision": 0.82
+          },
+          "comments": {
+            "helpfulness": "Média entre Clarity e Precision",
+            "correctness": "Média entre F1-Score e Precision",
+            "f1_score": "A resposta gerada é majoritariamente correta e relevante: cobre o problema de travamento com mais de 50 notificações, ausência de paginação, uso da thread principal, congelamento de 5-10s e ANR. Também inclui critérios sobre não congelar e carregamento progressivo/scroll. Porém adiciona hipóteses, cenários e perguntas pendentes não exigidos, reduzindo a precisão. No recall, omite pontos importantes da resposta esperada: tempo máximo de carregamento inferior a 2 segundos, paginação específica de 20 itens, uso explícito de background thread e RecyclerView com ViewHolder pattern.",
+            "clarity": "A resposta é bem organizada, com seções claras para história, critérios, contexto, hipóteses e pendências. A linguagem é compreensível e adequada, embora use alguns termos técnicos aceitáveis para o contexto. Há alguma ambiguidade porque vários pontos ficam como 'proposta a validar' ou perguntas pendentes, sem definir metas objetivas como tempo máximo ou tamanho da página. A principal fraqueza é a concisão: a resposta é longa, repete informações e inclui hipóteses e cenários adicionais que poderiam ser resumidos.",
+            "precision": "A resposta é majoritariamente fiel ao problema: menciona Android, 50+ notificações, congelamento, ANR, ausência de paginação e carga na thread principal. Não há alucinações relevantes, pois itens extras aparecem como hipóteses ou pendências. Porém, comparada ao ground truth, omite requisitos importantes e objetivos: carregamento em menos de 2 segundos, paginação de 20 itens, uso de RecyclerView com ViewHolder e scroll infinito explícito. Também adiciona cenários e perguntas pendentes não solicitados, mas ainda relacionados ao tema."
+          },
+          "answer_words": 589
+        },
+        {
+          "case": 11,
+          "run_id": "01a180d2-33dd-79ce-b65a-5e3748a295e8",
+          "example_sha256": "d21164db8d92ea92b9c2e451943059fc692eb1600d31cbcb25bd052716163ea9",
+          "scores": {
+            "helpfulness": 0.79,
+            "correctness": 0.8117,
+            "f1_score": 0.7834,
+            "clarity": 0.74,
+            "precision": 0.84
+          },
+          "comments": {
+            "helpfulness": "Média entre Clarity e Precision",
+            "correctness": "Média entre F1-Score e Precision",
+            "f1_score": "A resposta cobre bem o núcleo do bug: validação de estoque no checkout, bloqueio da compra, não geração de pedido sem estoque, concorrência entre clientes e mensagem de indisponibilidade. Também contextualiza corretamente o impacto. Porém, omite critérios importantes da resposta esperada: sugerir remover o item ou aguardar reposição, exibir aviso específico de 'estoque limitado' e reservar estoque temporariamente por 15 minutos ao ir para checkout. Há ainda conteúdo extra investigativo e perguntas pendentes, em geral relevante, mas desnecessário frente ao critério esperado.",
+            "clarity": "A resposta é bem organizada, com seções claras e critérios em formato Dado/Quando/Então. A linguagem é compreensível, embora inclua termos técnicos como concorrência, reserva e logs. A comunicação principal é clara: validar estoque no checkout e impedir pedido sem disponibilidade. Porém, há excesso de hipóteses, critérios técnicos e informações pendentes, o que reduz a concisão e torna a resposta menos direta. Algumas decisões importantes ficam abertas, como bloquear o pedido inteiro ou apenas o item, gerando certa ambiguidade operacional.",
+            "precision": "A resposta cobre corretamente o núcleo do bug: validar estoque no checkout, bloquear pedido sem disponibilidade e informar indisponibilidade. Não há alucinações fortes; pontos adicionais são apresentados como hipóteses ou pendências, não como fatos. Porém, adiciona várias seções não solicitadas, reduzindo um pouco o foco. Em relação à referência, falta explicitar requisitos importantes: sugerir remover/aguardar reposição, aviso de \"estoque limitado\" e reserva temporária de 15 minutos ao ir para checkout. Também trata a regra de reserva como incerta, enquanto a resposta esperada a define."
+          },
+          "answer_words": 680
+        },
+        {
+          "case": 12,
+          "run_id": "01a180d2-1140-782e-8505-04c791f1e296",
+          "example_sha256": "1a191225702eead1e95f246c890dfef59ba29fba3037d65c799d316fce633b78",
+          "scores": {
+            "helpfulness": 0.805,
+            "correctness": 0.7364,
+            "f1_score": 0.6928,
+            "clarity": 0.83,
+            "precision": 0.78
+          },
+          "comments": {
+            "helpfulness": "Média entre Clarity e Precision",
+            "correctness": "Média entre F1-Score e Precision",
+            "f1_score": "A resposta gerada é majoritariamente correta e relevante: identifica telas <768px, menu aberto, modal atrás do menu, botões clicáveis, z-index 1000 vs 1050 e necessidade de não fechar o menu antes. Porém adiciona hipóteses, cenários e perguntas pendentes não exigidos, reduzindo um pouco a precisão. O recall é moderado: faltam critérios importantes da resposta esperada, como modal acima de todos os elementos, menu lateral desfocado/backdrop, largura mínima de 90%, foco do teclado no modal, fechamento com ESC, clique fora no backdrop e solução explícita de z-index >1050.",
+            "clarity": "A resposta é bem organizada, com história de usuário, critérios, contexto técnico e cenários adicionais em ordem lógica. A linguagem é simples e compreensível, embora use alguns termos técnicos adequados ao contexto. Há pequena ambiguidade por tratar a solução como 'proposta a validar' em vez de definir claramente o ajuste esperado, e por levantar perguntas pendentes que podem enfraquecer a objetividade. Também é mais longa que o necessário, com alguma redundância nos cenários. Ainda assim, comunica o problema e o comportamento esperado com boa clareza.",
+            "precision": "A resposta é majoritariamente fiel ao problema: identifica telas <768px, menu aberto, z-index modal 1000 vs menu 1050 e necessidade de botões clicáveis. Não há alucinações fortes, pois extras são formulados como hipóteses ou pendências. Porém, fica incompleta frente ao esperado: não exige modal acima de todos os elementos, não menciona backdrop/desfoque, largura mínima de 90%, foco no modal, ESC, clique fora, nem a solução explícita de z-index >1050. Também adiciona cenários e perguntas não solicitados, reduzindo o foco."
+          },
+          "answer_words": 533
+        },
+        {
+          "case": 13,
+          "run_id": "01a180d1-98ef-7d80-8c1b-7aa559a24dad",
+          "example_sha256": "449e9f35e2cde4862c97c5df9809f276caef95384d0fd1c2af26f11a97897e17",
+          "scores": {
+            "helpfulness": 0.82,
+            "correctness": 0.8136,
+            "f1_score": 0.7672,
+            "clarity": 0.78,
+            "precision": 0.86
+          },
+          "comments": {
+            "helpfulness": "Média entre Clarity e Precision",
+            "correctness": "Média entre F1-Score e Precision",
+            "f1_score": "A resposta é majoritariamente correta e relevante: cobre user story, XSS, limite concorrente de cupons, timeout/loading infinito, cobrança sem pedido, impactos e tarefas de teste. Porém é mais genérica e investigativa do que prescritiva. Omite ou enfraquece pontos importantes do esperado: sanitização explícita/DOMPurify, validação backend, CSP, retry com backoff, circuit breaker, aumento do pool Postgres, idempotency key, SELECT FOR UPDATE/Redis INCR, polling/webhook, mensagens exatas de UX, tempos 30/45s, alertas e logs estruturados. Não há informações claramente incorretas, apenas incompletas.",
+            "clarity": "A resposta é muito bem estruturada, com seções lógicas e ordem compreensível. A linguagem é geralmente clara e acessível, embora use algumas formulações mais abstratas como \"convergir para um estado consistente\" e \"tratamento operacional definido\". Há boa cobertura dos problemas, mas parte dos critérios fica menos objetiva do que a referência, deixando margem para interpretação. A principal perda está na concisão: há bastante repetição, contexto reexplicado e muitas hipóteses/perguntas pendentes, o que torna a resposta mais longa do que necessário.",
+            "precision": "A resposta é bem alinhada ao problema e não introduz alucinações relevantes; quase tudo vem do enunciado ou é marcado como hipótese/proposta a validar. Cobre XSS, timeout/504, cobrança sem pedido, race condition em cupom, loading infinito e impactos. Porém é menos precisa que a referência em pontos técnicos esperados: não especifica retry com backoff, circuit breaker, CSP, SELECT FOR UPDATE/Redis INCR, idempotency key, mensagens exatas de UX, timeout 45s e alertas. Também evita recomendações diretas, ficando mais genérica. Ainda assim, é factualmente correta e focada."
+          },
+          "answer_words": 1279
+        },
+        {
+          "case": 14,
+          "run_id": "01a180d0-eaa8-7d9e-9595-a8ad1f068c60",
+          "example_sha256": "1622ee225d4a4db60975d2e0c27375f41404b705d425d1330b6ec58680c0bac1",
+          "scores": {
+            "helpfulness": 0.805,
+            "correctness": 0.7936,
+            "f1_score": 0.7672,
+            "clarity": 0.79,
+            "precision": 0.82
+          },
+          "comments": {
+            "helpfulness": "Média entre Clarity e Precision",
+            "correctness": "Média entre F1-Score e Precision",
+            "f1_score": "A resposta é majoritariamente correta e relevante: cobre user story, SLA de 3s, N+1, consistência de MRR, cache desatualizado e exportação sem OOM/degradação. Porém é menos assertiva que o esperado e omite critérios importantes: CPU DB <70%, suporte a 10k usuários, atualização em até 30s, cache crítico <=5min, exportação assíncrona com notificação, memória <80%, job queue, streaming/chunks, índices, JOINs, materialized views e redução 300→3 queries. Também transforma decisões esperadas em pendências/opções, como regra de MRR e exportação assíncrona.",
+            "clarity": "A resposta é muito bem organizada, com seções claras, critérios, contexto, hipóteses, tarefas e métricas. A linguagem é simples e compreensível, embora use alguns termos técnicos adequados ao contexto. Há certa ambiguidade em pontos importantes, como “prazo definido”, “condições acordadas” e “degradação severa”, que deixam limites menos objetivos do que a referência. A principal fraqueza é a concisão: a resposta é longa, repete muitos dados do contexto e inclui várias informações pendentes, o que reduz a objetividade apesar de melhorar a completude.",
+            "precision": "A resposta é majoritariamente fiel ao contexto e quase não inventa fatos; trata várias recomendações como hipóteses ou opções, o que reduz alucinações. Mantém foco nos problemas de performance, MRR, cache e exportação. Porém é menos precisa que o ground truth: não fixa critérios esperados como CPU <70%, suporte a 10.000 usuários, atualização em até 30s, cache crítico <=5min, exportação obrigatoriamente assíncrona/background, memória <80%, nem a regra concreta de MRR ‘assinaturas ativas + pró-rata’. Também deixa decisões em aberto que a referência já define."
+          },
+          "answer_words": 1692
+        },
+        {
+          "case": 15,
+          "run_id": "01a180d0-40c2-7bd6-bb02-5384a25586a7",
+          "example_sha256": "fa3f27707a30bb79dbb34f0896957de32fa50b9443beb8a735fc6b9ed86d8c08",
+          "scores": {
+            "helpfulness": 0.845,
+            "correctness": 0.7614,
+            "f1_score": 0.6928,
+            "clarity": 0.86,
+            "precision": 0.83
+          },
+          "comments": {
+            "helpfulness": "Média entre Clarity e Precision",
+            "correctness": "Média entre F1-Score e Precision",
+            "f1_score": "A resposta é majoritariamente correta e relevante: cobre conflito, upload com falha, ordenação, OOM, impacto e métricas gerais. Porém é mais vaga que o esperado e inclui hipóteses/perguntas não solicitadas. Omite detalhes importantes: backup da versão conflitante, notificar ambos e escolha manual; CRDT/vector clocks; chunked upload com checkpoints de 5MB e protocolo; timestamps do cliente e atomicidade; lotes de 50, limite de 500MB, progresso, pausar/retomar; fases de implementação e métricas-alvo específicas.",
+            "clarity": "A resposta é muito bem organizada, com seções claras para story, critérios, contexto, hipóteses, critérios técnicos, tarefas, métricas e pendências. A linguagem é direta e compreensível, com pouco jargão excessivo. Há alguma ambiguidade por usar termos como “proposta a validar” e por não definir comportamentos técnicos concretos em alguns pontos. Também é longa e parcialmente redundante, especialmente entre critérios, hipóteses e informações pendentes. Ainda assim, a comunicação geral é clara e fácil de seguir.",
+            "precision": "A resposta é bem focada e praticamente não alucina: reutiliza os fatos do contexto e marca hipóteses como 'a validar'. Cobre os quatro problemas principais: conflitos, anexos, ordenação e memória. Porém, frente ao ground truth, é menos precisa/prescritiva: não exige backup da versão conflitante, notificação de ambos usuários, escolha manual, chunks de 5MB, batch fixo de 50 itens, limite de 500MB, pausa/retomada, CRDT/vector clocks ou plano em fases. Portanto, é correta em alto nível, mas incompleta em detalhes essenciais esperados."
+          },
+          "answer_words": 1655
+        }
+      ],
+      "summary": {
+        "means": {
+          "helpfulness": 0.809,
+          "correctness": 0.7962666666666667,
+          "f1_score": 0.7665333333333334,
+          "clarity": 0.792,
+          "precision": 0.826
+        },
+        "overall_mean": 0.79796,
+        "passed": false,
+        "cases_below_threshold": 13,
+        "f1_cases_below_threshold": 11,
+        "mean_answer_words": 700.0666666666667
+      }
+    },
+    {
+      "name": "promptmateusmba-bug_to_user_story_v2-16d0cf3c",
+      "id": "6e64663b-524c-404d-9eb3-6e3aa108c37c",
+      "source": "promptmateusmba-bug_to_user_story_v2-16d0cf3c.csv",
+      "source_sha256": "559be077caff73ac42a5af113b31df0f57d893bb67a757c69a0474ce874bfcc2",
+      "configuration": {
+        "provider": "openai",
+        "llm_model": "gpt-5.4",
+        "eval_model": "gpt-5.5"
+      },
+      "git_revision": "a94ce44-dirty",
+      "prompt_hub_commit": null,
+      "prompt_sha256": null,
+      "cases": [
+        {
+          "case": 1,
+          "run_id": "01a180c6-8f7a-749d-acac-799132f13266",
+          "example_sha256": "44fbbb3c75b9e07dd507d0127bb4f11680d34fbc3f75ff3227ba3910aae7e08e",
+          "scores": {
+            "helpfulness": 0.75,
+            "correctness": 0.7182,
+            "f1_score": 0.6663,
+            "clarity": 0.73,
+            "precision": 0.77
+          },
+          "comments": {
+            "helpfulness": "Média entre Clarity e Precision",
+            "correctness": "Média entre F1-Score e Precision",
+            "f1_score": "A resposta gerada cobre corretamente o objetivo principal: cliente adiciona produto ao carrinho a partir da página do produto, clique no botão e inclusão do item. Porém adiciona muitos elementos não esperados ou desnecessários, como cenários provisórios, hipóteses, contexto técnico e perguntas pendentes. O recall é razoável porque contempla boa parte dos critérios, mas omite ou enfraquece pontos importantes: não menciona explicitamente a confirmação visual e não exige atualização do contador do carrinho. A finalidade também difere parcialmente, focando em continuar a compra do item, não em continuar comprando e finalizar depois.",
+            "clarity": "A resposta é bem organizada, com seções claras de critérios, contexto, hipóteses e pendências. A linguagem é compreensível e relativamente direta, embora mais técnica do que a referência. Há alguma ambiguidade por tratar os cenários como provisórios e incluir muitas condições ainda não confirmadas. O principal problema é a concisão: a resposta é excessivamente longa para a solicitação, adicionando hipóteses e perguntas que desviam do objetivo central de definir critérios de aceitação claros.",
+            "precision": "A resposta não apresenta alucinações fortes, pois trata hipóteses como pontos a investigar e usa o ID 1234 informado. Porém adiciona muitos elementos não solicitados, como cenário de falha, contexto técnico e perguntas pendentes, reduzindo o foco. Em relação à referência, cobre a ideia principal de adicionar o produto ao carrinho, mas não explicita claramente a confirmação visual nem a atualização do contador do carrinho, que são critérios esperados. Também torna o cenário mais provisório e específico do que o necessário."
+          },
+          "answer_words": 368
+        },
+        {
+          "case": 2,
+          "run_id": "01a180c6-7051-77a6-9fb3-e606650c05b2",
+          "example_sha256": "219a585eb711707c0fe3965c7eebb2d823a698c4b035a2c32913e7b85c75fe39",
+          "scores": {
+            "helpfulness": 0.83,
+            "correctness": 0.8428,
+            "f1_score": 0.8357,
+            "clarity": 0.81,
+            "precision": 0.85
+          },
+          "comments": {
+            "helpfulness": "Média entre Clarity e Precision",
+            "correctness": "Média entre F1-Score e Precision",
+            "f1_score": "A resposta gerada cobre corretamente o problema central: validar e-mail no cadastro, bloquear valores sem @, impedir conclusão do cadastro e exibir mensagem de erro. Também mantém a intenção da user story. Porém adiciona muitas informações não solicitadas, como contexto técnico, hipóteses, prevenção, cenários adicionais e perguntas pendentes, reduzindo a precisão por excesso de conteúdo. O principal ponto omitido é que a mensagem deve explicar o formato correto do e-mail; ela apenas indica que o e-mail é inválido.",
+            "clarity": "A resposta é bem organizada, com história, critérios, contexto e pendências em ordem lógica. A linguagem é clara e compreensível, embora um pouco mais técnica que a referência em trechos como “persistência” e “contornar a validação da interface”. Há pouca ambiguidade nos critérios principais, mas algumas partes deixam regras em aberto. O principal problema é a concisão: a resposta inclui hipóteses, prevenção, cenários adicionais e perguntas pendentes que tornam o conteúdo mais longo do que necessário para o caso simples apresentado.",
+            "precision": "A resposta cobre o núcleo esperado: validação de e-mail sem '@', exibição de erro e bloqueio do cadastro. Não há alucinações fortes, pois itens extras são apresentados como hipóteses ou pendências. Porém, adiciona seções não solicitadas como contexto técnico, prevenção, persistência e perguntas pendentes, reduzindo o foco. Também não explicita claramente que a mensagem deve explicar o formato correto, apenas que deve indicar e-mail inválido. No geral, está correta e alinhada, mas mais extensa e menos direta que a referência."
+          },
+          "answer_words": 404
+        },
+        {
+          "case": 3,
+          "run_id": "01a180c6-4ebf-7c34-80fe-cee4ad7bf726",
+          "example_sha256": "1c1c79a868be5bf0babe0eba3ceb7774d448ea581f072c42329ba40bad5d9ac3",
+          "scores": {
+            "helpfulness": 0.825,
+            "correctness": 0.8831,
+            "f1_score": 0.9161,
+            "clarity": 0.8,
+            "precision": 0.85
+          },
+          "comments": {
+            "helpfulness": "Média entre Clarity e Precision",
+            "correctness": "Média entre F1-Score e Precision",
+            "f1_score": "A resposta gerada cobre praticamente todos os pontos esperados: usuário iOS, tela de perfil, rotação para landscape, adaptação do layout, elementos visíveis/acessíveis e ausência de sobreposição/corte. Também preserva bem a intenção da user story. O recall é quase total, com 'alinhados' tratado implicitamente por 'sem quebrar layout' e 'reorganizar'. A precisão é um pouco menor porque adiciona muitos itens não solicitados, como retorno para portrait, hipóteses técnicas, acessibilidade, cenários adicionais e perguntas pendentes, que são relevantes mas extrapolam a resposta esperada.",
+            "clarity": "A resposta é bem organizada, com seções claras e critérios de aceitação estruturados em cenários. A linguagem é simples e compreensível, sem jargões excessivos. O objetivo principal fica claro: corrigir o layout da tela de perfil em landscape no iOS. Porém, há excesso de informações adicionais, como hipóteses, acessibilidade, cenários extras e perguntas pendentes, o que reduz a concisão e pode desviar do escopo esperado. Apesar disso, a comunicação permanece clara e útil.",
+            "precision": "A resposta cobre corretamente a história e os critérios principais: iOS, tela de perfil, rotação para landscape, adaptação do layout, elementos visíveis, alinhados e sem sobreposição. Não há alucinações fortes, pois os itens adicionais são apresentados como hipóteses, cenários ou informações pendentes. Porém, adiciona conteúdo não solicitado, como acessibilidade, retorno para portrait, campos/interações e investigação técnica, o que reduz o foco. Factualmente está alinhada à referência, apenas mais extensa e especulativa."
+          },
+          "answer_words": 455
+        },
+        {
+          "case": 4,
+          "run_id": "01a180c6-3243-7840-a31e-d18160e46378",
+          "example_sha256": "51f3eeee34ded0485f5d2b8a928afa4b977a97c92338ce0ffb166d31c79893e3",
+          "scores": {
+            "helpfulness": 0.795,
+            "correctness": 0.7446,
+            "f1_score": 0.7091,
+            "clarity": 0.81,
+            "precision": 0.78
+          },
+          "comments": {
+            "helpfulness": "Média entre Clarity e Precision",
+            "correctness": "Média entre F1-Score e Precision",
+            "f1_score": "A resposta gerada é majoritariamente relevante: identifica a inconsistência entre contador e lista, mantém o foco em usuários ativos e inclui critérios úteis sobre mesma regra, filtros e escopo. Porém adiciona muitas hipóteses, cenários e perguntas não presentes no esperado, e troca o perfil de administrador por gestor. Em recall, cobre a necessidade de contagem confiável e correspondência com a lista, mas omite explicitamente atualização em tempo real, não afirma que deve corresponder ao total real de usuários ativos e não restringe claramente a usuários com status 'ativo'.",
+            "clarity": "A resposta é bem estruturada, com história, critérios, hipóteses, cenários e informações pendentes em ordem lógica. A linguagem é simples e compreensível, embora um pouco mais técnica em pontos como “janela de tempo” e “escopo de dados”. Há boa clareza sobre a inconsistência entre contador e lista, mas algumas hipóteses e perguntas adicionais ampliam o escopo e podem deixar menos direto o comportamento esperado. A principal fraqueza é a concisão: a resposta é mais longa que o necessário e inclui muitos detalhes investigativos para uma demanda simples.",
+            "precision": "A resposta está majoritariamente alinhada ao problema de inconsistência entre contador e lista e evita afirmar causas como fatos, tratando-as como hipóteses. Porém, inventa/assume o perfil como “gestor”, enquanto a referência espera “administrador”. Também adiciona muitos detalhes não solicitados, como filtros, paginação, cache e escopo, reduzindo o foco. Em relação à referência, cobre a necessidade de contagem correta e consistência, mas não explicita atualização em tempo real nem que deve incluir apenas usuários com status “ativo”. Assim, é útil, mas parcialmente imprecisa e incompleta."
+          },
+          "answer_words": 389
+        },
+        {
+          "case": 5,
+          "run_id": "01a180c6-165e-7713-af34-f974e420090f",
+          "example_sha256": "7b2a1b1d46b428945d69b391416d003f0aa2f10ee7d787b66e955427272c2e42",
+          "scores": {
+            "helpfulness": 0.785,
+            "correctness": 0.7644,
+            "f1_score": 0.7488,
+            "clarity": 0.79,
+            "precision": 0.78
+          },
+          "comments": {
+            "helpfulness": "Média entre Clarity e Precision",
+            "correctness": "Média entre F1-Score e Precision",
+            "f1_score": "A resposta cobre bem o objetivo principal: cliente no Safari deve ver imagens de produtos para decidir compra, e inclui critérios de carregamento/exibição correta. Também reconhece que no Chrome funciona. Porém adiciona muitas informações não presentes no esperado, como hipóteses técnicas, dispositivos, cache, console e perguntas pendentes, o que reduz a precisão por excesso/especulação. No recall, omite dois pontos importantes dos critérios esperados: mesma qualidade visual em outros navegadores e tempo de carregamento similar. A página de produto aparece, embora misturada com catálogo.",
+            "clarity": "A resposta é bem organizada, com seções claras de critérios, contexto, hipóteses e pendências. A linguagem é majoritariamente compreensível, embora inclua termos técnicos como cache, lazy loading, console e política de segurança, que podem reduzir a simplicidade. A intenção principal é clara e há pouca ambiguidade nos critérios de aceitação. Porém, a resposta é mais extensa do que necessário para a solicitação e inclui muitas hipóteses e perguntas pendentes, o que prejudica a concisão e pode dispersar o foco da história de usuário esperada.",
+            "precision": "A resposta está majoritariamente alinhada ao problema: imagens de produtos não aparecem no Safari e funcionam no Chrome. Não há alucinações fortes, pois hipóteses são apresentadas como possibilidades a investigar, mas há acréscimos não solicitados, como cache, lazy loading, diferenças entre dispositivos e dependência de abrir em outro navegador. O foco é bom, porém a resposta divaga com contexto técnico e perguntas pendentes. Em relação ao ground truth, cobre o carregamento no Safari, mas não inclui explicitamente qualidade igual a outros navegadores nem tempo de carregamento similar."
+          },
+          "answer_words": 380
+        },
+        {
+          "case": 6,
+          "run_id": "01a180c5-ece4-744c-9727-0b46c2af5e8d",
+          "example_sha256": "f541791061fcdcc5f17e67c71ccaec04c3f491e8a2d268051074b3bf39ed57ae",
+          "scores": {
+            "helpfulness": 0.81,
+            "correctness": 0.8077,
+            "f1_score": 0.7955,
+            "clarity": 0.8,
+            "precision": 0.82
+          },
+          "comments": {
+            "helpfulness": "Média entre Clarity e Precision",
+            "correctness": "Média entre F1-Score e Precision",
+            "f1_score": "A resposta gerada é majoritariamente correta e relevante: descreve o webhook de pagamento aprovado, o POST para /api/webhooks/payment, o HTTP 500, a atualização do pedido e o impacto de permanecer como \"pendente\". Porém adiciona hipóteses, cenários e perguntas não presentes no esperado, ainda que plausíveis. O recall é bom, mas omite critérios importantes: não exige explicitamente HTTP 200, não menciona envio de email de confirmação e não coloca o log de auditoria como critério de aceitação. Também deixa ambíguo o status final, em vez de afirmar \"aprovado\".",
+            "clarity": "A resposta é bem organizada, com seções claras de critérios, contexto, hipóteses e pendências. A linguagem é compreensível e adequada, embora um pouco mais formal e extensa do que necessário. Há alguma ambiguidade em pontos importantes, como não definir explicitamente o status final esperado do pedido e tratar alguns itens como hipóteses ou propostas em vez de requisitos claros. A concisão é o ponto mais fraco: há excesso de detalhes e perguntas adicionais que tornam a resposta menos direta. Ainda assim, a comunicação geral é clara.",
+            "precision": "A resposta é majoritariamente fiel ao problema: identifica o endpoint /api/webhooks/payment, o HTTP 500, pagamento aprovado e pedido pendente. Não há grandes alucinações, pois itens extras aparecem como hipóteses ou informações pendentes. Porém, diverge parcialmente da referência: não exige explicitamente HTTP 200, não define o status final como \"aprovado\" e omite o envio de email de confirmação e log de auditoria como critérios obrigatórios. Também adiciona cenários e critérios técnicos extras, como retentativas e idempotência, relevantes mas não solicitados diretamente."
+          },
+          "answer_words": 565
+        },
+        {
+          "case": 7,
+          "run_id": "01a180c5-c379-79ed-961b-0935e69b0100",
+          "example_sha256": "c902a42e21d1935070d08f7502dbcb7dafa658d85182fd2df1c6111dd3a2f0bd",
+          "scores": {
+            "helpfulness": 0.725,
+            "correctness": 0.7166,
+            "f1_score": 0.6832,
+            "clarity": 0.7,
+            "precision": 0.75
+          },
+          "comments": {
+            "helpfulness": "Média entre Clarity e Precision",
+            "correctness": "Média entre F1-Score e Precision",
+            "f1_score": "A resposta gerada captura pontos relevantes: relatório de vendas, filtros com mais de 1000 registros, timeout do navegador, lentidão em horário comercial e ausência de índice em data_venda. Porém omite o requisito central de desempenho: geração em menos de 30 segundos, inclusive para qualquer volume. Também não recomenda claramente adicionar índice e otimizar a query. Há excesso de hipóteses, perguntas pendentes e cenários adicionais não solicitados. Além disso, tratar a meta de tempo como indefinida contradiz a resposta esperada.",
+            "clarity": "A resposta é bem organizada, com seções claras, critérios, contexto, hipóteses e pendências. A linguagem é compreensível, embora um pouco formal e extensa. Há ambiguidades importantes: não define meta objetiva de desempenho, usa expressões como “estado compatível” e “sem timeout” sem especificar tempo esperado, deixando dúvidas sobre o aceite. Também é pouco concisa, pois inclui muitas hipóteses e perguntas pendentes, tornando a resposta mais longa que o necessário para comunicar a história e os critérios principais.",
+            "precision": "A resposta é majoritariamente baseada nos dados fornecidos e evita afirmar soluções sem validação, então há poucas alucinações. Porém adiciona critérios e perguntas não solicitadas, como preservação para volumes menores e estados de processamento. O foco é bom, mas dilui a resposta com hipóteses e pendências. Factualmente, cobre timeout, >1000 registros, horário comercial e ausência de índice, mas falha no ponto central da referência: meta explícita de geração em menos de 30 segundos e sugestão direta de adicionar índice/otimizar query."
+          },
+          "answer_words": 550
+        },
+        {
+          "case": 8,
+          "run_id": "01a180c5-92a9-737b-875c-f4e59b10f4a8",
+          "example_sha256": "c49024d771267f9eb99aea8af9dfc7b3294bd0cd9c6b1ce11c5d60f44dd63f39",
+          "scores": {
+            "helpfulness": 0.775,
+            "correctness": 0.7998,
+            "f1_score": 0.7796,
+            "clarity": 0.73,
+            "precision": 0.82
+          },
+          "comments": {
+            "helpfulness": "Média entre Clarity e Precision",
+            "correctness": "Média entre F1-Score e Precision",
+            "f1_score": "A resposta é majoritariamente correta e relevante: identifica controle de permissões, bloqueio de usuário comum acessando terceiros, acesso ao próprio cadastro, acesso por administrador, endpoint, dados expostos e severidade. Porém é vaga onde o esperado era específico: não exige explicitamente HTTP 403 para acesso negado, nem HTTP 200 com dados completos para admin. Também omite OWASP A01, middleware de autorização e log obrigatório de auditoria para acessos de administradores. Inclui hipóteses e informações pendentes úteis, mas desnecessárias para os critérios esperados.",
+            "clarity": "A resposta é bem organizada, com seções claras, critérios de aceitação, contexto e pendências. A linguagem é compreensível e adequada, embora um pouco formal e extensa. Há ambiguidades importantes: não define explicitamente HTTP 403, usa expressões como “regra vigente” e deixa comportamentos centrais como pendentes. A concisão é o ponto mais fraco, pois inclui hipóteses, cenários e observações que tornam a resposta mais longa e menos objetiva do que a referência.",
+            "precision": "A resposta está majoritariamente alinhada: identifica o problema como falta de autorização em GET /api/users/:id, bloqueia usuário comum acessando terceiros, permite admins e evita exposição de email, telefone e endereço. Não há alucinações relevantes; itens como investigar endpoints similares são hipóteses razoáveis. Porém, falta precisão frente ao esperado: não especifica HTTP 403 Forbidden, trata acesso aos próprios dados de forma condicional (“caso permitido”) em vez de afirmar, não menciona OWASP A01 nem middleware de autorização, e o log de auditoria para admins aparece apenas como proposta a validar, não como critério obrigatório."
+          },
+          "answer_words": 633
+        },
+        {
+          "case": 9,
+          "run_id": "01a180c5-70d2-7048-93c2-b7286128ab42",
+          "example_sha256": "c1e940c5b016123b2abad34ea58348d72c1d2fe66b7a74b46fc48eae3ff968d4",
+          "scores": {
+            "helpfulness": 0.88,
+            "correctness": 0.915,
+            "f1_score": 0.9099,
+            "clarity": 0.84,
+            "precision": 0.92
+          },
+          "comments": {
+            "helpfulness": "Média entre Clarity e Precision",
+            "correctness": "Média entre F1-Score e Precision",
+            "f1_score": "A resposta gerada cobre corretamente a regra principal: desconto percentual aplicado sobre a soma dos produtos, exemplo com R$ 1.500, desconto de R$ 150 e total R$ 1.350, além de identificar o bug de aplicar desconto só no primeiro produto. Também traz uma user story adequada. O recall é alto, mas não explicita claramente como critério obrigatório que o detalhamento deve mostrar subtotal, desconto e total, embora isso apareça no exemplo. A precisão é levemente reduzida por adicionar hipóteses, cenários e perguntas pendentes não presentes no esperado, ainda que relevantes.",
+            "clarity": "A resposta é bem organizada, com user story, critérios, contexto, hipóteses, cálculo e pendências em ordem lógica. A linguagem é clara e acessível, sem jargões excessivos. Há pouca ambiguidade: o cálculo esperado e o bug ficam evidentes, embora expressões como “conforme a regra de negócio” abram alguma margem de interpretação. O principal ponto fraco é a concisão: inclui muitos cenários, hipóteses e perguntas pendentes que tornam a resposta mais longa que o necessário e parcialmente redundante em relação ao problema apresentado.",
+            "precision": "A resposta está amplamente alinhada à referência: identifica corretamente que o desconto deve incidir sobre a soma dos produtos, calcula R$ 1.500 - 10% = R$ 1.350 e descreve o bug de aplicar desconto apenas ao primeiro produto. Não há erros factuais relevantes. Há pequenas adições não presentes no ground truth, como hipóteses técnicas, cenários adicionais, regressão sem desconto e valores individuais dos itens, mas são plausíveis e relacionadas, não alucinações fortes. Faltou explicitar nos critérios que o detalhamento deve mostrar subtotal, desconto e total."
+          },
+          "answer_words": 496
+        },
+        {
+          "case": 10,
+          "run_id": "01a180c5-3fee-7b16-83f2-263909f5df8e",
+          "example_sha256": "312fd99465f57d6efcc8093e31bc2afe17b29944bc4bb78b87f2c4d3063d6054",
+          "scores": {
+            "helpfulness": 0.735,
+            "correctness": 0.7283,
+            "f1_score": 0.7266,
+            "clarity": 0.74,
+            "precision": 0.73
+          },
+          "comments": {
+            "helpfulness": "Média entre Clarity e Precision",
+            "correctness": "Média entre F1-Score e Precision",
+            "f1_score": "A resposta gerada captura corretamente o problema principal: Android, mais de 50 notificações, congelamento de 5-10s, ANR, ausência de paginação e carga na thread principal. Também inclui critérios de responsividade e ausência de ANR. Porém adiciona muitas hipóteses, cenários e perguntas pendentes não solicitadas, reduzindo a precisão. O recall é parcial: omite o requisito explícito de carregar em menos de 2 segundos, não especifica paginação de 20 itens, não menciona RecyclerView com ViewHolder nem scroll infinito como critérios técnicos obrigatórios.",
+            "clarity": "A resposta é bem organizada, com seções claras para história, critérios, contexto, hipóteses e pendências. A linguagem é compreensível e adequada, embora um pouco formal e extensa. Há alguma ambiguidade porque não define metas objetivas de desempenho nem soluções técnicas concretas como paginação de 20 itens, background thread ou RecyclerView; deixa decisões importantes em aberto. A concisão é o ponto mais fraco: há repetição de ideias e muitos cenários/hipóteses que tornam a resposta mais longa do que necessário para comunicar o bug e os critérios principais.",
+            "precision": "A resposta é majoritariamente baseada nos dados fornecidos e evita afirmar soluções não confirmadas, mas adiciona hipóteses e cenários extras não presentes na referência. Mantém foco no problema de travamento/ANR com 50+ notificações, porém é mais genérica e omite requisitos importantes do ground truth, como carregamento em menos de 2 segundos, paginação de 20 itens, RecyclerView com ViewHolder e scroll infinito. Também trata paginação como opcional, enquanto a referência a exige. Não há erros graves, mas há lacunas relevantes."
+          },
+          "answer_words": 633
+        },
+        {
+          "case": 11,
+          "run_id": "01a180c5-14c1-78fb-9af0-058065bf20b2",
+          "example_sha256": "d21164db8d92ea92b9c2e451943059fc692eb1600d31cbcb25bd052716163ea9",
+          "scores": {
+            "helpfulness": 0.79,
+            "correctness": 0.7934,
+            "f1_score": 0.7668,
+            "clarity": 0.76,
+            "precision": 0.82
+          },
+          "comments": {
+            "helpfulness": "Média entre Clarity e Precision",
+            "correctness": "Média entre F1-Score e Precision",
+            "f1_score": "A resposta captura bem o núcleo: validar estoque no checkout, bloquear pedido sem estoque, informar indisponibilidade e tratar concorrência entre clientes. Também cobre o impacto de não gerar pedido sem estoque. Porém omite critérios importantes: sugerir remover item ou aguardar reposição, exibir aviso de “estoque limitado” ao adicionar e reservar estoque temporariamente por 15 minutos no checkout. Inclui itens extras e especulativos, como hipóteses técnicas, decisões pendentes e compra parcial, que são plausíveis mas não estavam na resposta esperada.",
+            "clarity": "A resposta é bem estruturada, com história de usuário, critérios, cenários, contexto e pendências, o que facilita a leitura. A linguagem é clara e compreensível, embora use alguns termos técnicos aceitáveis. Há alguma ambiguidade ao tratar hipóteses e decisões pendentes, pois mistura requisitos esperados com pontos ainda a investigar. O principal problema é a concisão: a resposta é mais longa que o necessário, repete ideias sobre validação de estoque e inclui detalhes técnicos que reduzem a objetividade.",
+            "precision": "A resposta cobre corretamente o núcleo do bug: revalidar estoque no checkout, bloquear pedido sem estoque e informar indisponibilidade. Não há grandes alucinações; itens extras aparecem como hipóteses ou pendências. Porém, diverge parcialmente da referência por não incluir explicitamente a reserva temporária de 15 minutos, o aviso 'estoque limitado' ao adicionar e a sugestão de remover item ou aguardar reposição. Também adiciona discussões técnicas e perguntas pendentes que, embora relevantes, extrapolam o esperado. Há leve ambiguidade ao permitir conclusão para quantidades disponíveis, sugerindo compra parcial não definida."
+          },
+          "answer_words": 581
+        },
+        {
+          "case": 12,
+          "run_id": "01a180c4-f0a7-770c-95a2-541c40333e48",
+          "example_sha256": "1a191225702eead1e95f246c890dfef59ba29fba3037d65c799d316fce633b78",
+          "scores": {
+            "helpfulness": 0.785,
+            "correctness": 0.7147,
+            "f1_score": 0.6794,
+            "clarity": 0.82,
+            "precision": 0.75
+          },
+          "comments": {
+            "helpfulness": "Média entre Clarity e Precision",
+            "correctness": "Média entre F1-Score e Precision",
+            "f1_score": "A resposta gerada cobre bem o problema central: telas <768px, modal de exclusão atrás do menu, z-index 1000 vs 1050, necessidade de ficar acima do menu e botões clicáveis sem fechar o menu. Também adiciona cenários e validações geralmente relevantes, embora alguns sejam extras/desnecessários. Porém omite itens importantes da resposta esperada: menu lateral desfocado/backdrop como requisito, modal com pelo menos 90% da largura, foco do teclado no modal, fechamento com ESC, clique fora no backdrop e solução explícita de z-index >1050.",
+            "clarity": "A resposta é bem organizada, com seções claras e sequência lógica. A linguagem é simples e compreensível, apesar de incluir alguns termos técnicos apropriados ao contexto. Há pouca ambiguidade, pois descreve bem o problema, os cenários e o comportamento esperado, mas algumas partes ficam menos assertivas por tratar soluções como hipóteses a investigar. A concisão é o ponto mais fraco: a resposta é longa, inclui perguntas pendentes e cenários adicionais que tornam a comunicação menos direta.",
+            "precision": "A resposta é majoritariamente fiel ao problema: identifica corretamente o conflito de z-index, telas <768px, menu 1050, modal 1000 e necessidade de botões clicáveis. Não há alucinações fortes; itens como hipóteses, cenários adicionais e perguntas pendentes são especulativos, mas apresentados como investigação. Porém, está incompleta frente à referência: não exige modal acima de todos os elementos, backdrop/desfoque do menu, largura mínima de 90%, foco no modal, ESC e fechamento ao clicar fora. Também não explicita a solução técnica de ajustar z-index do modal para >1050."
+          },
+          "answer_words": 503
+        },
+        {
+          "case": 13,
+          "run_id": "01a180c4-91c3-78c6-925c-2dd2e6e88f3c",
+          "example_sha256": "449e9f35e2cde4862c97c5df9809f276caef95384d0fd1c2af26f11a97897e17",
+          "scores": {
+            "helpfulness": 0.85,
+            "correctness": 0.8274,
+            "f1_score": 0.7747,
+            "clarity": 0.82,
+            "precision": 0.88
+          },
+          "comments": {
+            "helpfulness": "Média entre Clarity e Precision",
+            "correctness": "Média entre F1-Score e Precision",
+            "f1_score": "A resposta gerada é majoritariamente correta e relevante: cobre XSS, timeout/504, cobrança sem pedido, race condition em cupons, loading infinito, impactos e componentes afetados. Porém é menos específica que o esperado. Omite ou enfraquece critérios importantes como sanitização explícita com DOMPurify/CSP/validação backend, retry com backoff, circuit breaker, aumento do pool, timeout 45s, SELECT FOR UPDATE/Redis INCR, idempotency key, polling/webhook, mensagens exatas e opção Consultar Status/Tentar Novamente. Inclui hipóteses e perguntas úteis, mas parcialmente desnecessárias frente ao ground truth.",
+            "clarity": "A resposta é muito bem organizada, com seções claras, critérios de aceitação, contexto, hipóteses, tasks e métricas. A linguagem é compreensível e profissional, embora um pouco mais abstrata do que a referência. Há alguma ambiguidade por usar frequentemente expressões como “proposta a validar” e por evitar decisões técnicas específicas, o que pode deixar dúvidas sobre ações esperadas. A principal fraqueza é a concisão: é longa, repetitiva em alguns pontos e inclui muitas perguntas pendentes, reduzindo objetividade. Ainda assim, comunica bem os problemas e próximos passos.",
+            "precision": "A resposta é bem alinhada ao problema e não apresenta alucinações relevantes: reproduz corretamente XSS, 504, pool exhausted, cobrança sem pedido, race condition em cupons e loading infinito. Mantém foco em user story, critérios, contexto, hipóteses e tasks. Porém é menos precisa/completa que o ground truth: omite detalhes esperados como retry com backoff, circuit breaker, CSP, DOMPurify, SELECT FOR UPDATE/Redis INCR, aumento do pool, mensagens específicas e tempos técnicos de 45s. Também trata várias ações como hipóteses a validar, reduzindo assertividade frente à referência."
+          },
+          "answer_words": 1211
+        },
+        {
+          "case": 14,
+          "run_id": "01a180c4-19f5-796e-b9aa-90becc46c341",
+          "example_sha256": "1622ee225d4a4db60975d2e0c27375f41404b705d425d1330b6ec58680c0bac1",
+          "scores": {
+            "helpfulness": 0.77,
+            "correctness": 0.7464,
+            "f1_score": 0.6928,
+            "clarity": 0.74,
+            "precision": 0.8
+          },
+          "comments": {
+            "helpfulness": "Média entre Clarity e Precision",
+            "correctness": "Média entre F1-Score e Precision",
+            "f1_score": "A resposta é majoritariamente correta e relevante: cobre a user story, performance do dashboard, inconsistência de MRR, cache desatualizado e exportação pesada, além dos impactos. Porém é menos assertiva que o esperado e omite vários critérios mensuráveis: CPU <70%, suporte a 10.000 usuários, atualização em até 30s, cache crítico <=5min, exportação assíncrona com notificação, memória <80%, redução de 300 para 3 queries, índices, materialized views, chunks e timeout. Também enfraquece o requisito de MRR idêntico ao permitir diferenças se rotuladas.",
+            "clarity": "A resposta é bem organizada, com seções claras para story, critérios, contexto, hipóteses, tasks e pendências. A linguagem é majoritariamente simples e compreensível. Porém, há ambiguidade em vários pontos por usar termos como “proposta a validar”, “janela esperada” e “regra oficial” sem definir metas objetivas, deixando ações menos conclusivas. Também é longa e repetitiva, especialmente ao reenumerar o contexto e incluir muitas pendências, o que reduz a concisão. Ainda assim, comunica bem os principais problemas e direcionamentos.",
+            "precision": "A resposta é majoritariamente fiel ao contexto e não inventa soluções específicas sem marcar como propostas, portanto tem baixa alucinação. Mantém foco em user story, critérios, contexto e tasks. Porém é menos precisa que a referência: critérios são vagos e omitem metas importantes como CPU <70%, suporte a 10.000 usuários, cache atualizado em 30s, dados críticos com cache máximo de 5min, exportação obrigatoriamente assíncrona e memória <80%. Também permite MRR diferente se rotulado, enquanto a referência exige valor idêntico entre fontes."
+          },
+          "answer_words": 1586
+        },
+        {
+          "case": 15,
+          "run_id": "01a180c3-9b25-7f39-9c71-acd3f796b01d",
+          "example_sha256": "fa3f27707a30bb79dbb34f0896957de32fa50b9443beb8a735fc6b9ed86d8c08",
+          "scores": {
+            "helpfulness": 0.805,
+            "correctness": 0.734,
+            "f1_score": 0.6481,
+            "clarity": 0.79,
+            "precision": 0.82
+          },
+          "comments": {
+            "helpfulness": "Média entre Clarity e Precision",
+            "correctness": "Média entre F1-Score e Precision",
+            "f1_score": "A resposta é majoritariamente correta e relevante: cobre os quatro problemas centrais (conflitos, upload, ordenação e memória), impactos e necessidade de não marcar sync falso. Porém é genérica e adiciona investigações/perguntas não presentes. O recall é moderado: faltam critérios específicos essenciais como backup da versão conflitante, notificar ambos e escolha manual, checkpoints de 5MB, retomada real, manter fila após 5 tentativas, batch de 50, limite 500MB, progresso, pausar/retomar, CRDT/vector clocks, operation log detalhado, backoff/rate limit e métricas alvo completas.",
+            "clarity": "A resposta é bem organizada, com seções claras, critérios de aceitação, contexto, hipóteses, tarefas e métricas. A linguagem é simples e compreensível, embora extensa. Há alguma ambiguidade porque muitos pontos ficam genéricos ou condicionais, como “propostas a validar”, “se confirmado” e ausência de decisões concretas para conflito, upload e ordenação. A concisão é o ponto mais fraco: há repetição de informações do contexto e muitos detalhes pendentes, tornando a resposta mais longa do que necessário para comunicar os requisitos principais.",
+            "precision": "A resposta é bem focada e quase não alucina: baseia-se nos problemas reportados e evita inventar arquitetura não fornecida. Porém, em relação ao ground truth, é incompleta e menos precisa em pontos importantes: não exige backup da versão conflitante, notificação de ambos os usuários nem escolha manual; não especifica chunks/checkpoints de 5MB, progresso em tempo real ou manter anexo na fila; não define lotes de 50, limite de 500MB, pausa/retomada; e trata timestamp do cliente com cautela, enquanto a referência exige ordenação por client_timestamp. Ainda assim, os conceitos gerais estão corretos."
+          },
+          "answer_words": 1702
+        }
+      ],
+      "summary": {
+        "means": {
+          "helpfulness": 0.794,
+          "correctness": 0.7824266666666666,
+          "f1_score": 0.7555066666666667,
+          "clarity": 0.7786666666666666,
+          "precision": 0.8093333333333333
+        },
+        "overall_mean": 0.7839866666666666,
+        "passed": false,
+        "cases_below_threshold": 12,
+        "f1_cases_below_threshold": 12,
+        "mean_answer_words": 697.0666666666667
+      }
+    },
+    {
+      "name": "promptmateusmba-bug_to_user_story_v2-8c034dd1",
+      "id": "03725a14-86f3-4d00-9481-5b1821c82b70",
+      "source": "LangSmith API: list_runs/list_feedback/read_project",
+      "created_at": "2026-10-28T05:05:12.507252Z",
+      "dataset_id": "5d70698d-a1a2-4bec-8551-270fbf6165b3",
+      "dataset_version": "2026-10-28T03:32:11.162454+00:00",
+      "configuration": {
+        "provider": "openai",
+        "llm_model": "gpt-5.4",
+        "eval_model": "gpt-5.5"
+      },
+      "git_revision": "a94ce44-dirty",
+      "prompt_hub_commit": "42343f3e00c6f179ab050fc92b67e10b81970d7b85bd24923a38c58bef58153c",
+      "prompt_sha256": "727f2c278765824fe9cb44d329a540a2a3979c98973204a94d9edf8d9e2433d9",
+      "prompt_identity": {
+        "experiment_local_sha256": "727f2c278765824fe9cb44d329a540a2a3979c98973204a94d9edf8d9e2433d9",
+        "experiment_remote_sha256": "727f2c278765824fe9cb44d329a540a2a3979c98973204a94d9edf8d9e2433d9",
+        "audited_local_sha256": "727f2c278765824fe9cb44d329a540a2a3979c98973204a94d9edf8d9e2433d9",
+        "audited_remote_sha256": "727f2c278765824fe9cb44d329a540a2a3979c98973204a94d9edf8d9e2433d9"
+      },
+      "cases": [
+        {
+          "case": 1,
+          "run_id": "01a180e7-9933-7bab-8f88-890e90f13d59",
+          "example_sha256": "44fbbb3c75b9e07dd507d0127bb4f11680d34fbc3f75ff3227ba3910aae7e08e",
+          "scores": {
+            "helpfulness": 0.835,
+            "correctness": 0.8719,
+            "f1_score": 0.9137,
+            "clarity": 0.84,
+            "precision": 0.83
+          },
+          "comments": {
+            "helpfulness": "Média entre Clarity e Precision",
+            "correctness": "Média entre F1-Score e Precision",
+            "f1_score": "A resposta gerada cobre corretamente a história principal e os critérios esperados: visualizar produto, clicar em 'Adicionar ao carrinho', adicionar ao carrinho, exibir confirmação visual e atualizar o estado/contador do carrinho. O recall é alto, com pequena perda porque a ideia de 'continuar comprando e finalizar depois' foi resumida como seguir para compra. A precision é um pouco menor porque adiciona critérios extras não solicitados, como acesso ao carrinho, quantidade inicial, prevenção de cliques duplicados e contexto técnico, embora sejam relevantes e não incorretos.",
+            "clarity": "A resposta é bem organizada, com história de usuário, critérios de aceitação, prevenção e contexto técnico em ordem lógica. A linguagem é clara e compreensível, embora um pouco mais formal do que necessário. Há pouca ambiguidade; os comportamentos esperados estão bem definidos, mas expressões como “salvo regra já existente mais restritiva” podem gerar dúvida. A concisão é o ponto mais fraco, pois a resposta inclui detalhes adicionais e repetição do produto ID 1234 que vão além da referência esperada.",
+            "precision": "A resposta cobre corretamente a necessidade principal: adicionar produto ao carrinho, confirmação visual e atualização do estado/contador, alinhada ao ground truth. Mantém foco no problema do botão e inclui o produto ID 1234, citado pelo usuário. Porém adiciona critérios não presentes na referência, como prevenção de cliques duplicados, validação ao acessar o carrinho, quantidade inicial 1 e regra restritiva do produto. Essas informações são plausíveis, mas não verificáveis a partir da pergunta, reduzindo a ausência de alucinações e o foco."
+          },
+          "answer_words": 217
+        },
+        {
+          "case": 2,
+          "run_id": "01a180e7-8a26-760a-b79b-77afeaeb486a",
+          "example_sha256": "219a585eb711707c0fe3965c7eebb2d823a698c4b035a2c32913e7b85c75fe39",
+          "scores": {
+            "helpfulness": 0.925,
+            "correctness": 0.9337,
+            "f1_score": 0.9474,
+            "clarity": 0.93,
+            "precision": 0.92
+          },
+          "comments": {
+            "helpfulness": "Média entre Clarity e Precision",
+            "correctness": "Média entre F1-Score e Precision",
+            "f1_score": "A resposta gerada cobre corretamente o objetivo do usuário e todos os critérios esperados: contexto de cadastro, email sem '@', indicação de erro, bloqueio do cadastro e orientação sobre formato válido. Também adiciona cenário de email válido e critérios técnicos de frontend/backend, que são relevantes, mas não estavam na resposta esperada, tornando-a um pouco mais ampla/desnecessária. Não há informações incorretas.",
+            "clarity": "A resposta é muito bem organizada, com história de usuário, critérios de aceitação separados por cenários e critérios técnicos. A linguagem é simples e compreensível, embora inclua termos como backend e chamadas diretas, que podem ser um pouco técnicos. Há pouca ambiguidade: fica claro que emails sem @ devem ser bloqueados e emails válidos permitidos. A concisão é boa, mas a inclusão de critérios técnicos e cenário positivo torna a resposta um pouco mais longa que o necessário para o problema descrito.",
+            "precision": "A resposta cobre corretamente o problema central: email sem '@' deve ser inválido, exibir mensagem de erro e impedir o cadastro. Está alinhada à referência e não contém erros factuais. Há leve expansão além do esperado ao incluir cenário de email válido e critérios técnicos de validação no frontend/backend, que não estavam explicitamente na ground truth, mas são coerentes e não configuram alucinação relevante. O foco permanece majoritariamente na solicitação."
+          },
+          "answer_words": 176
+        },
+        {
+          "case": 3,
+          "run_id": "01a180e7-7805-72b2-9dc9-25061caa072f",
+          "example_sha256": "1c1c79a868be5bf0babe0eba3ceb7774d448ea581f072c42329ba40bad5d9ac3",
+          "scores": {
+            "helpfulness": 0.89,
+            "correctness": 0.9237,
+            "f1_score": 0.9474,
+            "clarity": 0.88,
+            "precision": 0.9
+          },
+          "comments": {
+            "helpfulness": "Média entre Clarity e Precision",
+            "correctness": "Média entre F1-Score e Precision",
+            "f1_score": "A resposta gerada cobre corretamente a história de usuário e todos os critérios esperados: tela de perfil no iOS, rotação para landscape, adaptação do layout, elementos visíveis/alinhados e sem sobreposição. Também adiciona itens como preservação de estado, acessibilidade e validação em diferentes iPhones, que são relevantes, mas não estavam no escopo esperado, reduzindo levemente a precisão por excesso de informação. Não há informações incorretas.",
+            "clarity": "A resposta é bem organizada, com história de usuário, critérios de aceitação separados por cenário, acessibilidade e metas. A linguagem é simples, direta e fácil de entender. Há pouca ambiguidade: os comportamentos esperados em landscape e na troca de orientação estão claros. Porém, é um pouco mais extensa que o necessário e adiciona itens extras, como acessibilidade e validação em diferentes iPhones, que podem ser úteis, mas reduzem a concisão em relação à referência.",
+            "precision": "A resposta gerada cobre corretamente o problema central: layout da tela de perfil no iOS ao girar para landscape, mantendo elementos visíveis, alinhados e sem sobreposição, conforme a referência. Não há afirmações factualmente incorretas. Porém, adiciona critérios extras não presentes no ground truth, como preservação de estado, acessibilidade/foco e validação em iPhones de tamanhos diferentes. Esses pontos são plausíveis e relacionados, mas extrapolam levemente o escopo solicitado. Por isso, há pequena perda em foco e possível excesso não verificável, sem comprometer a precisão geral."
+          },
+          "answer_words": 230
+        },
+        {
+          "case": 4,
+          "run_id": "01a180e7-6629-7ea3-942b-a1370445fe28",
+          "example_sha256": "51f3eeee34ded0485f5d2b8a928afa4b977a97c92338ce0ffb166d31c79893e3",
+          "scores": {
+            "helpfulness": 0.815,
+            "correctness": 0.7769,
+            "f1_score": 0.7838,
+            "clarity": 0.86,
+            "precision": 0.77
+          },
+          "comments": {
+            "helpfulness": "Média entre Clarity e Precision",
+            "correctness": "Média entre F1-Score e Precision",
+            "f1_score": "A resposta gerada é majoritariamente correta e relevante: descreve a necessidade de contagem correta de usuários ativos, alinhada à lista, e usa o exemplo 42 vs 50. Também aborda confiança nos dados para decisões. Porém adiciona itens não exigidos, como validação pelo time e mesma consulta/filtros, reduzindo um pouco a precisão. O recall é parcial: cobre dashboard, métrica e correspondência da contagem, mas não explicita o papel de admin, não garante atualização em tempo real de forma clara e só menciona status/filtros de modo indireto.",
+            "clarity": "A resposta é bem organizada, com história de usuário, critérios de aceitação separados e exemplo específico do erro. A linguagem é majoritariamente simples e compreensível, embora use alguns termos mais técnicos como “critérios de elegibilidade” e “regra centralizada”. Há pouca ambiguidade: fica claro que a contagem deve bater com a lista e usar os mesmos filtros. Porém, as metas propostas adicionam escopo extra e tornam a resposta um pouco menos concisa. Também há certa redundância entre o critério A e o exemplo B.",
+            "precision": "A resposta está majoritariamente alinhada ao problema: pede contagem consistente de usuários ativos e usa corretamente o exemplo 50 vs 42. Porém adiciona elementos não presentes ou não garantidos na referência, como filtros aplicados, critérios de elegibilidade, mesma consulta/regra centralizada e atualização sem recarga apenas condicional. Também troca o papel de administrador por gestor e não afirma claramente que deve incluir apenas status \"ativo\" nem atualização em tempo real como requisito direto. Ainda assim, o núcleo funcional está correto."
+          },
+          "answer_words": 207
+        },
+        {
+          "case": 5,
+          "run_id": "01a180e7-5532-7f47-b0d8-ee6da3e0398c",
+          "example_sha256": "7b2a1b1d46b428945d69b391416d003f0aa2f10ee7d787b66e955427272c2e42",
+          "scores": {
+            "helpfulness": 0.845,
+            "correctness": 0.8135,
+            "f1_score": 0.7969,
+            "clarity": 0.86,
+            "precision": 0.83
+          },
+          "comments": {
+            "helpfulness": "Média entre Clarity e Precision",
+            "correctness": "Média entre F1-Score e Precision",
+            "f1_score": "A resposta gerada é majoritariamente correta e relevante: cobre o usuário cliente, visualização de imagens no Safari, carregamento correto e preservação do comportamento no Chrome. Também adiciona critérios úteis sobre imagem quebrada e testes. Porém inclui detalhes técnicos e soluções que não estavam na resposta esperada, reduzindo um pouco a precisão. No recall, contempla a maior parte dos critérios esperados, mas omite explicitamente que a qualidade das imagens deve ser a mesma entre navegadores e não menciona que o tempo de carregamento deve ser similar.",
+            "clarity": "A resposta é bem organizada, com história de usuário, critérios de aceitação separados e contexto técnico. A linguagem é clara e compreensível, embora inclua termos um pouco genéricos como “entrega e/ou renderização”. Há pouca ambiguidade nos critérios principais, mas algumas partes técnicas são vagas e não especificam exatamente o comportamento esperado, como qualidade e tempo de carregamento. A concisão é razoável, porém a resposta é mais extensa que o necessário e contém certa redundância ao reforçar o funcionamento no Chrome e o contexto relatado.",
+            "precision": "A resposta está bem alinhada ao problema central: imagens de produtos não aparecem no Safari e funcionam no Chrome. Não há alucinações graves, mas adiciona itens não presentes na referência, como testes de compatibilidade, páginas de listagem/detalhe e preservação de origem/conteúdo. O foco é bom, embora inclua critérios técnicos extras. Factualmente, cobre o carregamento correto no Safari e a não regressão no Chrome, mas omite critérios esperados como mesma qualidade das imagens e tempo de carregamento similar."
+          },
+          "answer_words": 194
+        },
+        {
+          "case": 6,
+          "run_id": "01a180e7-37e9-752b-af7a-ef2cbe4727a7",
+          "example_sha256": "f541791061fcdcc5f17e67c71ccaec04c3f491e8a2d268051074b3bf39ed57ae",
+          "scores": {
+            "helpfulness": 0.8,
+            "correctness": 0.8049,
+            "f1_score": 0.8098,
+            "clarity": 0.8,
+            "precision": 0.8
+          },
+          "comments": {
+            "helpfulness": "Média entre Clarity e Precision",
+            "correctness": "Média entre F1-Score e Precision",
+            "f1_score": "A resposta gerada é majoritariamente correta e relevante: cobre webhook POST /api/webhooks/payment, HTTP 200, pagamento aprovado, atualização de status de pendente para aprovado e o contexto de HTTP 500. Também adiciona pontos úteis como idempotência e associação correta ao pedido, embora sejam extras não exigidos. O recall é menor porque omite critérios importantes da resposta esperada: envio de email de confirmação ao cliente e log do evento para auditoria; menciona logs apenas para falhas, não auditoria do sucesso.",
+            "clarity": "A resposta é bem organizada, com história, critérios de aceitação, critérios técnicos e contexto em ordem lógica. A linguagem é clara, embora um pouco mais técnica do que necessário em alguns pontos. Há pequenas ambiguidades, como “status de pagamento aprovado definido pelo fluxo” em vez de declarar diretamente “aprovado”, e “contrato proposto”. A concisão é o ponto mais fraco: há repetição e detalhamento além do necessário para a demanda, especialmente em critérios técnicos e tratamento de falhas.",
+            "precision": "A resposta está majoritariamente alinhada ao problema: identifica o HTTP 500 no POST /api/webhooks/payment, exige retorno HTTP 200 e atualização do pedido pendente após pagamento aprovado. Não há alucinações graves, mas adiciona itens não presentes na referência, como idempotência, não alterar outros pedidos e reprocessamento controlado. Também omite requisitos esperados importantes: envio de email de confirmação ao cliente e log do evento para auditoria. A formulação do status como “status de pagamento aprovado definido pelo fluxo” é menos precisa que “aprovado”."
+          },
+          "answer_words": 376
+        },
+        {
+          "case": 7,
+          "run_id": "01a180e7-1a43-7cdd-89f3-58ec2b2c9397",
+          "example_sha256": "c902a42e21d1935070d08f7502dbcb7dafa658d85182fd2df1c6111dd3a2f0bd",
+          "scores": {
+            "helpfulness": 0.8,
+            "correctness": 0.8397,
+            "f1_score": 0.8595,
+            "clarity": 0.78,
+            "precision": 0.82
+          },
+          "comments": {
+            "helpfulness": "Média entre Clarity e Precision",
+            "correctness": "Média entre F1-Score e Precision",
+            "f1_score": "A resposta gerada cobre a maior parte do esperado: relatório com mais de 1000 registros, filtros por período, ausência de timeout, lentidão em horário comercial, índice em data_venda, otimização da query e meta de 30 segundos. O recall é reduzido porque não coloca o limite de <30s como critério de aceitação principal e não afirma claramente desempenho para qualquer volume. A precision é boa, mas há acréscimos não solicitados, como feedback de processamento e fluxo assíncrono, que podem desviar do requisito principal de gerar em menos de 30 segundos.",
+            "clarity": "A resposta é bem organizada, com história de usuário, critérios de aceitação, critérios técnicos, contexto e metas. A linguagem é clara e compreensível, embora um pouco mais técnica e extensa que o necessário. Há pequena ambiguidade em expressões como “compatível com uso operacional” e na alternativa assíncrona, mas os objetivos principais ficam claros. O principal ponto negativo é a concisão: a resposta repete informações já dadas e adiciona detalhes além do necessário, tornando-a mais longa que a referência.",
+            "precision": "A resposta está majoritariamente alinhada ao problema: menciona 1000+ registros, timeout de 120s, ausência de índice em data_venda, lentidão em horário comercial e propõe índice/otimização. Porém adiciona itens não presentes ou não verificáveis na referência, como processamento assíncrono, notificação de conclusão e estado de processamento. Também troca o papel de gerente por analista e trata a meta de 30s como proposta, não como critério obrigatório. Ainda assim, não contradiz fortemente o contexto e permanece focada na solicitação."
+          },
+          "answer_words": 392
+        },
+        {
+          "case": 8,
+          "run_id": "01a180e7-04a2-78e5-b9a5-c0adbcabfb84",
+          "example_sha256": "c49024d771267f9eb99aea8af9dfc7b3294bd0cd9c6b1ce11c5d60f44dd63f39",
+          "scores": {
+            "helpfulness": 0.93,
+            "correctness": 0.9546,
+            "f1_score": 0.9491,
+            "clarity": 0.9,
+            "precision": 0.96
+          },
+          "comments": {
+            "helpfulness": "Média entre Clarity e Precision",
+            "correctness": "Média entre F1-Score e Precision",
+            "f1_score": "A resposta gerada é quase toda correta e relevante: cobre 403 para usuário comum acessando outro usuário, acesso aos próprios dados, acesso administrativo com 200, dados expostos, severidade alta, middleware/autorização centralizada e auditoria. Não há informações incorretas relevantes; alguns detalhes técnicos extras são pertinentes. O recall é alto, mas não perfeito: não cita explicitamente OWASP A01:2021, não afirma de forma tão direta que admins acessam dados de todos com dados completos, e a auditoria aparece de forma mais genérica do que no critério específico para admins.",
+            "clarity": "A resposta é bem organizada, com seções claras para história, critérios de aceitação, critérios técnicos e contexto. A linguagem é direta e compreensível, com poucos termos técnicos necessários ao tema. Há pouca ambiguidade: fica claro quem pode acessar quais dados e qual status HTTP deve ser retornado. A concisão é boa, embora haja leve redundância entre contexto, critérios técnicos e aceitação, e alguns detalhes poderiam ser mais enxutos. No geral, comunica claramente a correção esperada.",
+            "precision": "A resposta está quase totalmente alinhada ao ground truth: exige 403 para usuário comum acessando dados de outro usuário, permite acesso ao próprio cadastro, permite admins acessarem outros usuários e recomenda middleware/regra centralizada de autorização. Também preserva o contexto de severidade alta e dados expostos como email, telefone e endereço. Não há alucinações relevantes; a inclusão de auditoria e validação antes de serializar é uma extensão técnica plausível e coerente. Pequena diferença: não cita explicitamente OWASP A01, mas isso não compromete a correção."
+          },
+          "answer_words": 295
+        },
+        {
+          "case": 9,
+          "run_id": "01a180e6-ef98-7868-bb5c-50ee6c620d31",
+          "example_sha256": "c1e940c5b016123b2abad34ea58348d72c1d2fe66b7a74b46fc48eae3ff968d4",
+          "scores": {
+            "helpfulness": 0.92,
+            "correctness": 0.9324,
+            "f1_score": 0.9348,
+            "clarity": 0.91,
+            "precision": 0.93
+          },
+          "comments": {
+            "helpfulness": "Média entre Clarity e Precision",
+            "correctness": "Média entre F1-Score e Precision",
+            "f1_score": "A resposta gerada é quase totalmente correta e relevante: descreve a user story, aplica o desconto sobre a soma dos produtos, calcula corretamente R$ 1.350 e identifica o bug de aplicar desconto apenas no primeiro item. Também adiciona critérios técnicos e testes, que são relevantes, embora extras. O recall é alto porque cobre os principais critérios e o exemplo de cálculo. Pequena omissão: não explicita como critério de aceitação que o detalhamento deve mostrar subtotal, desconto e total, embora isso apareça implicitamente no exemplo.",
+            "clarity": "A resposta é bem organizada, com história de usuário, critérios de aceitação, exemplo de cálculo e critérios técnicos em ordem lógica. A linguagem é simples, direta e compreensível, sem jargões excessivos. Há pouca ambiguidade: fica claro que o desconto deve incidir sobre a soma dos produtos elegíveis e não depender da ordem dos itens. A concisão é boa, embora haja alguma redundância entre os critérios e as soluções propostas, além de ser um pouco mais extensa que o necessário. No geral, comunica o problema e a solução com alta clareza.",
+            "precision": "A resposta está muito alinhada à referência: descreve a user story, aplica o desconto sobre a soma dos produtos, calcula corretamente R$ 1.500 - 10% = R$ 1.350 e identifica o bug de desconto apenas no primeiro item. Não há alucinações relevantes; apenas adiciona detalhes não exigidos, como testes de ordem dos itens e 'produtos elegíveis', que são inferências plausíveis. Pequena perda por não explicitar como critério que o detalhamento deve mostrar subtotal, desconto e total, embora isso apareça no exemplo."
+          },
+          "answer_words": 259
+        },
+        {
+          "case": 10,
+          "run_id": "01a180e6-d66a-78f4-a347-b91131f74df0",
+          "example_sha256": "312fd99465f57d6efcc8093e31bc2afe17b29944bc4bb78b87f2c4d3063d6054",
+          "scores": {
+            "helpfulness": 0.86,
+            "correctness": 0.8808,
+            "f1_score": 0.8916,
+            "clarity": 0.85,
+            "precision": 0.87
+          },
+          "comments": {
+            "helpfulness": "Média entre Clarity e Precision",
+            "correctness": "Média entre F1-Score e Precision",
+            "f1_score": "A resposta gerada é quase toda correta e relevante: identifica o problema de carregamento na thread principal, propõe paginação, processamento assíncrono, carregamento incremental, ausência de ANR e responsividade. Também preserva o contexto de congelamento de 5-10s e cenário com mais de 50 itens. Porém, omite detalhes técnicos específicos do esperado, como carregar exatamente 20 itens por vez, uso explícito de RecyclerView com ViewHolder pattern e scroll infinito. A meta de menos de 2 segundos aparece, mas como meta proposta, não como critério obrigatório.",
+            "clarity": "A resposta é bem organizada, com user story, critérios de aceitação, critérios técnicos, contexto e metas. A linguagem é clara e compreensível, com poucos termos técnicos e todos relevantes ao problema. Há pouca ambiguidade: comunica bem que o carregamento deve ser assíncrono, incremental e sem ANR, embora falte especificar alguns detalhes objetivos da referência, como quantidade por página. A principal limitação é a concisão: a resposta é mais longa que o necessário, repete ideias sobre responsividade, ANR e carregamento progressivo, e inclui metas semelhantes em duplicidade.",
+            "precision": "A resposta está bem alinhada ao problema: menciona carregamento fora da thread principal, paginação, carregamento incremental, responsividade e ausência de ANR. Não há alucinações graves, mas adiciona detalhes não fornecidos como interações de voltar/rolar, “aprovação do time” e “ambiente de referência”. Em relação ao ground truth, é factualmente correta, porém menos específica: não cita carregar 20 itens por vez, RecyclerView com ViewHolder nem scroll infinito explicitamente. A meta de 2 segundos aparece, mas como proposta inicial, não como critério obrigatório."
+          },
+          "answer_words": 354
+        },
+        {
+          "case": 11,
+          "run_id": "01a180e6-b998-7c35-b32a-8a2b6b1d9e4f",
+          "example_sha256": "d21164db8d92ea92b9c2e451943059fc692eb1600d31cbcb25bd052716163ea9",
+          "scores": {
+            "helpfulness": 0.865,
+            "correctness": 0.8751,
+            "f1_score": 0.8802,
+            "clarity": 0.86,
+            "precision": 0.87
+          },
+          "comments": {
+            "helpfulness": "Média entre Clarity e Precision",
+            "correctness": "Média entre F1-Score e Precision",
+            "f1_score": "A resposta gerada é correta e relevante: cobre validação de estoque no checkout, bloqueio da compra sem estoque, não geração do pedido, mensagem clara e orientação para remover ou aguardar reposição. Também aborda concorrência e consistência de estoque, alinhado ao cenário crítico. Porém omite pontos específicos da resposta esperada: aviso de \"estoque limitado\" ao adicionar item em carrinhos de outros clientes e reserva temporária de estoque por 15 minutos ao ir para checkout. As informações extras técnicas são relevantes, não incorretas.",
+            "clarity": "A resposta é bem organizada, com história de usuário, critérios de aceitação, técnicos e prevenção em ordem lógica. A linguagem é clara e compreensível, embora use alguns termos mais técnicos como “atualização atômica”, “transação” e “quantidade atendível”. Há pouca ambiguidade: fica claro que a compra deve ser bloqueada sem estoque e que o estoque deve ser revalidado. Porém, é um pouco extensa e repetitiva em alguns pontos, especialmente ao reiterar validações no carrinho, checkout e finalização.",
+            "precision": "A resposta está bem alinhada ao bug: exige validação em tempo real no checkout, bloqueia pedido sem estoque, informa o cliente e trata concorrência para evitar estoque negativo. Não há alucinações graves; os critérios técnicos como transação/atualização atômica são inferências razoáveis. Porém adiciona detalhes não explicitamente pedidos e não cobre pontos da referência, como aviso \"estoque limitado\" ao adicionar e reserva temporária de estoque por 15 minutos no checkout. Portanto é majoritariamente correta, mas incompleta frente ao ground truth."
+          },
+          "answer_words": 374
+        },
+        {
+          "case": 12,
+          "run_id": "01a180e6-a89a-7e6f-aec4-dce46b398de2",
+          "example_sha256": "1a191225702eead1e95f246c890dfef59ba29fba3037d65c799d316fce633b78",
+          "scores": {
+            "helpfulness": 0.88,
+            "correctness": 0.8101,
+            "f1_score": 0.7503,
+            "clarity": 0.89,
+            "precision": 0.87
+          },
+          "comments": {
+            "helpfulness": "Média entre Clarity e Precision",
+            "correctness": "Média entre F1-Score e Precision",
+            "f1_score": "A resposta gerada é quase toda correta e relevante: identifica o problema de z-index, exige modal acima do menu em telas <768px, botões clicáveis e não precisar fechar o menu. Também propõe ajustar empilhamento/backdrop. Porém, cobre apenas parcialmente a resposta esperada: não menciona que o modal deve ficar acima de todos os elementos, não exige largura mínima de 90%, não cita menu lateral desfocado, nem critérios de acessibilidade como foco no modal, fechar com ESC e fechar ao clicar no backdrop. A solução >1050 é implícita, não explícita.",
+            "clarity": "A resposta é bem organizada, com história de usuário, critérios de aceitação, critérios técnicos e contexto. A linguagem é simples e direta, facilitando o entendimento. Há pouca ambiguidade: fica claro que o modal deve aparecer acima do menu e permanecer clicável, embora a solução técnica não especifique explicitamente um z-index maior que 1050. A concisão é boa, mas há leve redundância entre critérios técnicos e contexto técnico. No geral, comunica o problema e o comportamento esperado com bastante clareza.",
+            "precision": "A resposta está bem alinhada ao problema: identifica corretamente o conflito de z-index (modal 1000 vs menu 1050), exige modal acima do menu e botões clicáveis. Não há alucinações relevantes; as propostas são plausíveis e baseadas no contexto. Porém, está incompleta em relação ao ground truth: não menciona modal acima de todos os elementos, menu desfocado/backdrop claramente, largura mínima de 90%, nem critérios de acessibilidade como foco no modal, fechar com ESC e fechar ao clicar fora. Portanto, é factual e focada, mas omite requisitos importantes."
+          },
+          "answer_words": 235
+        },
+        {
+          "case": 13,
+          "run_id": "01a180e6-6d57-715c-bb6b-4f939dfb8413",
+          "example_sha256": "449e9f35e2cde4862c97c5df9809f276caef95384d0fd1c2af26f11a97897e17",
+          "scores": {
+            "helpfulness": 0.915,
+            "correctness": 0.8922,
+            "f1_score": 0.8845,
+            "clarity": 0.93,
+            "precision": 0.9
+          },
+          "comments": {
+            "helpfulness": "Média entre Clarity e Precision",
+            "correctness": "Média entre F1-Score e Precision",
+            "f1_score": "A resposta gerada é majoritariamente correta e relevante: cobre XSS, idempotência, criação de pedido após pagamento aprovado, timeout sem spinner infinito, race condition em cupons e esgotamento do pool. Não há informações claramente incorretas; extras como métricas são pertinentes. O recall é bom, mas omite detalhes esperados: mensagens específicas como “cupom esgotado”, timeout máximo de 45s, circuit breaker, aumento explícito do pool, SELECT FOR UPDATE/Redis INCR, webhook assíncrono, logs estruturados, alertas de monitoramento e testes de carga.",
+            "clarity": "A resposta é muito bem organizada, com seções claras, ordem lógica e separação entre user story, critérios, contexto, tarefas e métricas. A linguagem é direta e compreensível, embora use alguns termos técnicos necessários ao domínio. Há pouca ambiguidade: os comportamentos esperados estão bem definidos, especialmente para XSS, timeout, idempotência e cupons. A concisão é boa, mas poderia ser ligeiramente mais enxuta, pois há alguma repetição entre critérios técnicos, contexto e tarefas. No geral, comunica claramente o problema e as ações esperadas.",
+            "precision": "A resposta é altamente alinhada ao problema e à referência: cobre XSS, timeout/504, cobrança sem pedido, race condition em cupons, loading infinito, impacto e tarefas técnicas. Não há alucinações relevantes; as adições como idempotência, reconciliação, CSP e backoff são pertinentes. Pequenas lacunas: não menciona explicitamente circuit breaker, webhook/polling, alertas de timeout, SELECT FOR UPDATE/Redis, aumento do pool do Postgres ou mensagens exatas de UX esperadas. Também propõe meta de 504 para 0%/35s não presente na referência, mas como meta sugerida, não fato inventado."
+          },
+          "answer_words": 772
+        },
+        {
+          "case": 14,
+          "run_id": "01a180e6-3737-7308-b459-b5d62278ed0e",
+          "example_sha256": "1622ee225d4a4db60975d2e0c27375f41404b705d425d1330b6ec58680c0bac1",
+          "scores": {
+            "helpfulness": 0.885,
+            "correctness": 0.8324,
+            "f1_score": 0.7747,
+            "clarity": 0.88,
+            "precision": 0.89
+          },
+          "comments": {
+            "helpfulness": "Média entre Clarity e Precision",
+            "correctness": "Média entre F1-Score e Precision",
+            "f1_score": "A resposta é majoritariamente correta e relevante: cobre a user story, N+1, SLA de 3s, MRR centralizado, cache inválido e exportação em background/streaming. Há poucas imprecisões, como limite de memória em 2GB em vez de 80% e tratamento de MRR menos específico. O recall é parcial: omite CPU do banco <70%, suporte a 10.000 usuários, atualização em até 30s, cache crítico <=5min, notificação de exportação, materialized views, redução 300→3 queries, chunks de 1000 linhas, timeout, testes/APM e plano de sprints detalhado.",
+            "clarity": "A resposta é muito bem organizada, com seções claras, critérios de aceitação, critérios técnicos, contexto, tasks e métricas. A linguagem é direta e compreensível, com jargões técnicos necessários ao problema. Há pouca ambiguidade, embora alguns pontos poderiam ser mais específicos, como limites objetivos de CPU, tempo máximo de atualização do cache e formato da exportação assíncrona. A concisão é boa, sem excesso relevante, mas há alguma repetição entre critérios técnicos, tasks e métricas. No geral, comunica claramente o escopo e as ações esperadas.",
+            "precision": "A resposta é bem focada e majoritariamente baseada no contexto, sem alucinações relevantes. Cobre N+1, MRR centralizado, cache desatualizado e exportação em background/streaming. Porém, comparada à referência, omite ou enfraquece critérios importantes: CPU do banco <70%, suporte a até 10.000 usuários, cache crítico máximo de 5min/atualização em 30s, memória <80%, notificação da exportação, redução de 300 para 3 queries, materialized views, chunks de 1000 linhas e plano por sprints. Também não fixa a regra correta de MRR como assinaturas ativas + pró-rata."
+          },
+          "answer_words": 750
+        },
+        {
+          "case": 15,
+          "run_id": "01a180e5-e5d1-71f3-98fb-b929fa827441",
+          "example_sha256": "fa3f27707a30bb79dbb34f0896957de32fa50b9443beb8a735fc6b9ed86d8c08",
+          "scores": {
+            "helpfulness": 0.88,
+            "correctness": 0.8477,
+            "f1_score": 0.8154,
+            "clarity": 0.88,
+            "precision": 0.88
+          },
+          "comments": {
+            "helpfulness": "Média entre Clarity e Precision",
+            "correctness": "Média entre F1-Score e Precision",
+            "f1_score": "A resposta é quase totalmente correta e relevante: cobre conflitos sem last-write-wins, upload retomável, status não sincronizado em falha, ordenação create/update/delete e sync em lotes sem crash. Também adiciona itens pertinentes como sincronização parcial e retomada segura. Porém omite vários detalhes importantes do esperado: escolha manual da versão e notificação a ambos, checkpoints de 5MB, lote de 50, limite de 500MB, pausar/retomar, CRDT/vector clocks, protocolo de upload, operation log detalhado, rate limiting/backoff, fases técnicas e métricas numéricas de sucesso.",
+            "clarity": "A resposta é muito bem organizada, com seções claras, critérios de aceitação separados por problema, tarefas e métricas. A linguagem é direta e compreensível, com pouco jargão desnecessário. Há baixa ambiguidade: os comportamentos esperados ficam claros, especialmente sobre conflitos, uploads, ordenação e memória. A principal limitação está na concisão: a resposta é longa e repete algumas ideias entre critérios, critérios técnicos, contexto e métricas. Ainda assim, a estrutura facilita a leitura e a compreensão geral.",
+            "precision": "A resposta é bem focada e cobre os quatro bugs principais: conflitos sem last-write-wins silencioso, upload retomável, ordenação create/update/delete e processamento em lotes para evitar OOM. Não há alucinações relevantes; as propostas são plausíveis e baseadas no contexto. Porém, é menos precisa que a referência em pontos específicos: não menciona checkpoints de 5MB, lotes de 50, limite de 500MB, pausa/retomada, CRDT/vector clocks, cópia de backup e escolha manual explícita por ambos os usuários. Também não inclui fases, métricas completas e detalhes de protocolo esperados."
+          },
+          "answer_words": 1227
+        }
+      ],
+      "summary": {
+        "means": {
+          "helpfulness": 0.8696666666666667,
+          "correctness": 0.8659733333333334,
+          "f1_score": 0.8626066666666666,
+          "clarity": 0.87,
+          "precision": 0.8693333333333333
+        },
+        "overall_mean": 0.867516,
+        "passed": true,
+        "cases_below_threshold": 5,
+        "f1_cases_below_threshold": 4,
+        "mean_answer_words": 403.8666666666667
+      }
+    }
+  ],
+  "excluded_executions": [
+    {
+      "name": "promptmateusmba-bug_to_user_story_v2-fbf15da8",
+      "source": "dataset_149f4388-af23-4269-b6a8-203bf9af378f.csv",
+      "observed_cases": 6,
+      "status": "partial",
+      "reason": "A exportação preserva somente 6 dos 15 casos; fora da comparação de avaliações completas."
+    },
+    {
+      "name": "promptmateusmba-bug_to_user_story_v2-bdd2693f",
+      "source": "promptmateusmba-bug_to_user_story_v2-bdd2693f.csv",
+      "source_sha256": "abcd08c1eaf5bc69062e290728f3f03d8798f3c6dff1a22b63b19700bd9cf7a2",
+      "observed_cases": 15,
+      "generation_errors": 6,
+      "successful_generations": 9,
+      "http_error_status": 429,
+      "status": "operational_failure",
+      "reason": "Limites da API: cinco erros por tokens/minuto e um por requisições/dia; notas afetadas por falhas não medem a qualidade do prompt."
+    }
+  ]
+}
